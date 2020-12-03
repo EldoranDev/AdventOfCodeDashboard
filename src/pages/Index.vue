@@ -33,7 +33,7 @@ export default {
     MemberTimeline,
   },
   metaInfo: {
-    title: 'Hello, world!',
+    title: 'Leaderbord',
   }
 }
 </script>

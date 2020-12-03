@@ -1,8 +1,7 @@
-const axios = require('axios');
-const jsonResponse = require('./cache.json');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
-const addData = require('./src/generation/addData');
+const axios = require('./src/aoc/axios');
+const dataSource = require('./src/aoc/datasource');
 
 // Server API makes it possible to hook into various parts of Gridsome
 // on server-side and add custom data to the GraphQL data layer.
@@ -13,8 +12,15 @@ const addData = require('./src/generation/addData');
 
 module.exports = function (api) {
   api.loadSource(async ({ addCollection }) => {
-    // fetch JSON from API
-    await addData(jsonResponse, addCollection);
+    let data = null;
+    if (process.env.CACHED) {
+      console.log("Using Cached version");
+      data = require('./cache.json'); 
+    } else {
+      data = (await axios.get(`/leaderboard/private/view/${process.env.AOC_BOARD}.json`)).data;
+    }
+
+    await dataSource(data, addCollection);
   })
 
   api.chainWebpack((config, { isServer }) => {
