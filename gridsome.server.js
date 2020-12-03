@@ -1,5 +1,6 @@
 const axios = require('axios');
 const jsonResponse = require('./cache.json');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 const addData = require('./src/generation/addData');
 
@@ -13,10 +14,10 @@ const addData = require('./src/generation/addData');
 module.exports = function (api) {
   api.loadSource(async ({ addCollection }) => {
     // fetch JSON from API
-    addData(jsonResponse, addCollection);
+    await addData(jsonResponse, addCollection);
   })
 
-  api.createPages(({ createPage }) => {
-    // Use the Pages API here: https://gridsome.org/docs/pages-api/
-  })
+  api.chainWebpack((config, { isServer }) => {
+    config.plugin('vuetify-loader').use(VuetifyLoaderPlugin);
+  });
 }

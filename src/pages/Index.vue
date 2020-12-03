@@ -1,33 +1,47 @@
 <template>
   <Layout>
-
-    <!-- Learn how to use images here: https://gridsome.org/docs/images -->
-    <g-image alt="Example image" src="~/favicon.png" width="135" />
-
-    <h1>Hello, world!</h1>
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur excepturi labore tempore expedita, et iste tenetur suscipit explicabo! Dolores, aperiam non officia eos quod asperiores
-    </p>
-
-    <p class="home-links">
-      <a href="https://gridsome.org/docs/" target="_blank" rel="noopener">Gridsome Docs</a>
-      <a href="https://github.com/gridsome/gridsome" target="_blank" rel="noopener">GitHub</a>
-    </p>
-
+    <h1 class="text-h1 font-weight-thin text-center mb-10">Advent of Code 2020</h1>
+    <highscore-table class="mb-10"/>
+    <member-timeline />
   </Layout>
 </template>
 
+<page-query>
+  query {
+    members: allMember(sortBy: "score.local", order: DESC) {
+      edges {
+        node {
+          id
+          name
+          score {
+            local
+            global
+          }
+        }
+      }
+    }
+  }
+</page-query>
+
 <script>
+import MemberTimeline from '../components/timeline/timeline.vue';
+import HighscoreTable from '../components/highscore/table.vue';
+
 export default {
+  components: {
+    HighscoreTable,
+    MemberTimeline,
+  },
   metaInfo: {
-    title: 'Hello, world!'
+    title: 'Hello, world!',
   }
 }
 </script>
 
-<style>
-.home-links a {
-  margin-right: 1rem;
+<style scoped>
+h1 {
+  text-decoration: none;
+  color: #00cc00;
+  text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
 }
 </style>

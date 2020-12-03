@@ -1,9 +1,12 @@
+const axios = require('axios').default;
+const { JSDOM } = require('jsdom');
+
 const TYPE_STAR = 'STAR';
 const TYPE_START = 'START';
 
-module.exports = (data, addCollection) => {
-    const userCollection = addCollection({
-        typeName: 'User'
+module.exports = async (data, addCollection) => {
+    const memberCollection = addCollection({
+        typeName: 'Member'
     });
 
     const eventCollection = addCollection({
@@ -14,29 +17,30 @@ module.exports = (data, addCollection) => {
 
     for (const id of ids) {
         const member = data.members[id];
-
-        userCollection.addNode({
-            id,
-            name: member.name || 'Anonymous',
-            score: {
-                local: member.local_score,
-                global: member.global_score,
-            }
-        });
-
         const events = getMemberEvents(member);
 
         for (const event of events) {
             eventCollection.addNode(event);
         }
-    }
 
+        if (events.length > 0) {
+            memberCollection.addNode({
+                id: Number(id),
+                name: member.name || 'Anonymous',
+                score: {
+                    local: member.local_score,
+                    global: member.global_score,
+                }
+            });
+        }
+    }
+    
     for (let i = 1; i < (new Date()).getDay(); i++) {
         eventCollection.addNode({
             type: TYPE_START,
-            timestamp: (new Date(2020, 11, i, 6, 0)).getTime(),
+            timestamp: (new Date(2020, 11, i, 6, 0)).getTime() / 1000,
             day: i,
-            // Get days intro text    
+            intro: await getDescriptionOfDay(i),
         })
     }
 };
@@ -63,4 +67,13 @@ function getMemberEvents(member) {
     }
 
     return events;
+}
+
+async function getDescriptionOfDay(day) {
+    const { data } = await axios.get(`https://adventofcode.com/2020/day/${day}`);
+    
+    const { document } = (new JSDOM(data)).window;
+    const intro = document.querySelector('p');
+
+    return intro.textContent;
 }
