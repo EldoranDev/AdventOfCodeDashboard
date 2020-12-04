@@ -1,10 +1,17 @@
-const axios = require('axios').default;
-const { JSDOM } = require('jsdom');
+const provider = require('./datasource/provider');
+const cache = require('./datasource/cache');
+const config = require('./config');
 
 const TYPE_STAR = 'STAR';
 const TYPE_START = 'START';
 
-module.exports = async (data, addCollection) => {
+module.exports = async ({addCollection}) => {
+    if (config.CACHE) {
+        await cache.setup();
+    }
+
+    const data = await provider.getLeaderBoard();
+    
     const memberCollection = addCollection({
         typeName: 'Member'
     });
@@ -36,11 +43,12 @@ module.exports = async (data, addCollection) => {
     }
     
     for (let i = 1; i < (new Date()).getDay(); i++) {
+        console.log(await provider.getDayIntro(i));
         eventCollection.addNode({
             type: TYPE_START,
             timestamp: (new Date(2020, 11, i, 6, 0)).getTime() / 1000,
             day: i,
-            intro: await getDescriptionOfDay(i),
+            // intro: await provider.getDayIntro(i),
         })
     }
 };
@@ -67,13 +75,4 @@ function getMemberEvents(member) {
     }
 
     return events;
-}
-
-async function getDescriptionOfDay(day) {
-    const { data } = await axios.get(`https://adventofcode.com/2020/day/${day}`);
-    
-    const { document } = (new JSDOM(data)).window;
-    const intro = document.querySelector('p');
-
-    return intro.textContent;
 }

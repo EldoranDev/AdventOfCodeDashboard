@@ -1,11 +1,9 @@
 const axios = require('axios').default;
-
-const YEAR = process.env.AOC_YEAR || (new Date()).getFullYear();
-const SESSION = process.env.AOC_SESSION;
+const config = require('./config');
 
 module.exports = axios.create({
-    baseURL: `https://adventofcode.com/${YEAR}`,
+    baseURL: `https://adventofcode.com/${config.YEAR}`,
     headers: {
-        cookie: `session=${SESSION}`
+        cookie: `session=${config.SESSION}`
     }
 })
