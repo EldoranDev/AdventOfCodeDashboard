@@ -1,6 +1,6 @@
-const axios = require('../axios');
 const config = require('../config');
 const cache = require('./cache');
+const axios = require('./axios');
 
 const { JSDOM } = require('jsdom');
 
