@@ -1,14 +1,33 @@
-# Default starter for Gridsome
+# AdventOfCode Dashboard
 
-This is the project you get when you run `gridsome create new-project`.
+> Advent of Code Visualized
 
-### 1. Install Gridsome CLI tool if you don't have
+background details relevant to understanding what this module does
 
-`npm install --global @gridsome/cli`
+## Usage
 
-### 2. Create a Gridsome project
+```bash
+# bulding
+AOC_YEAR=2020 AOC_SESSION=8asda.... AOC_BOARD=1 npm run build
 
-1. `gridsome create my-gridsome-site` to install default starter
-2. `cd my-gridsome-site` to open the folder
-3. `gridsome develop` to start a local dev server at `http://localhost:8080`
-4. Happy coding 🎉🙌
+# development
+AOC_CACHED=true AOC_YEAR=2020 AOC_SESSION=8asda.... AOC_BOARD=1 npm run build
+```
+
+## Configuration
+| Config | Default | Description
+| --- | :---: | --: |
+| AOC_CACHED | Not set |If set a cached version of the leaderbord will be used |
+| AOC_YEAR | Current Year | Sets the year that should be used
+| AOC_BOARD | Not set | The ID of the private Leaderboard to visualize
+
+
+## See Also
+
+- [AdventOfCode](https://adventofcode.com)
+- [Gridsome](https://gridsome.org)
+
+## License
+
+MIT
+
