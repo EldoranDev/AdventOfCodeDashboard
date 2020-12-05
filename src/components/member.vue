@@ -2,9 +2,9 @@
   <span>
     <v-tooltip top>
       <template #activator="{ on, attrs }">
-        <span v-bind="attrs" v-on="on">
-          <em>{{ member.name }}</em>
-        </span>
+        <g-link :to="`/member/${id}`">
+          <em v-bind="attrs" v-on="on">{{ member.name }}</em>
+        </g-link>
       </template>
       {{ member.score.local}} | {{member.score.global}}
     </v-tooltip>
@@ -48,5 +48,9 @@ export default {
     color: #ffffff;
     font-style: normal;
     text-shadow: 0 0 5px #ffffff;
+  }
+
+  .v-application a {
+    text-decoration:  none;
   }
 </style>

@@ -1,7 +1,6 @@
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
-const axios = require('./src/aoc/axios');
-const dataSource = require('./src/aoc/datasource');
+const aoc = require('./src/aoc');
 
 // Server API makes it possible to hook into various parts of Gridsome
 // on server-side and add custom data to the GraphQL data layer.
@@ -12,8 +11,12 @@ const dataSource = require('./src/aoc/datasource');
 
 module.exports = function (api) {
   api.loadSource(async (actions) => {
-    await dataSource(actions);
-  })
+    await aoc.loadSource(actions);
+  });
+
+  api.createPages(async (actions) => {
+    await aoc.createPages(actions);
+  });
 
   api.chainWebpack((config, { isServer }) => {
     config.plugin('vuetify-loader').use(VuetifyLoaderPlugin);
