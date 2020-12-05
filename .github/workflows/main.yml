@@ -4,7 +4,7 @@ on:
    - cron: '*/30 6-22 * 12 *'
   workflow_dispatch:
     inputs:
-    
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -19,6 +19,7 @@ jobs:
           AOC_BOARD: 5017
           AOC_INCLUDE: 384199
           AOC_SESSION: ${{ secrets.AOC_SESSION }}
+          GRIDSOME_PATH_PREFIX: /AdventOfCodeDashboard
         run: |
           npm ci 
           npm run build

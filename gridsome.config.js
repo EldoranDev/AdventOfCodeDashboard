@@ -6,5 +6,6 @@
 
 module.exports = {
   siteName: 'AoC 2020',
-  plugins: []
+  plugins: [],
+  pathPrefix: process.env.GRIDSOME_PATH_PREFIX || '/',
 }
