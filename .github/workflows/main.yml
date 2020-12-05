@@ -2,6 +2,9 @@ name: Publish Demo
 on:
   schedule:
    - cron: '*/30 6-22 * 12 *'
+  workflow_dispatch:
+    inputs:
+    
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
