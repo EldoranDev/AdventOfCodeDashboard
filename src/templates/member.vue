@@ -9,6 +9,10 @@ query ($memberId: ID){
     member(id: $memberId) {
         id
         name
+        events {
+            id
+            timestamp
+        }
     }
 }
 </page-query>

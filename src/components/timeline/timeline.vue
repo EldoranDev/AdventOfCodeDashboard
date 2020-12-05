@@ -20,8 +20,9 @@ query {
           }
         }
         timestamp
-        part
+        year
         day
+        part
         intro
       }
     }

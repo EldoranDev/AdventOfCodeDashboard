@@ -21,9 +21,13 @@
             <h2 :class="'headline font-weight-light mb-4'">
                 Day {{event.day}}
             </h2>
-            <div>
+            <div class="mb-4">
                 {{ event.intro }}
             </div>
+
+            <a :href="`https://adventofcode.com/${event.year}/day/${event.day}`" target="_blank" rel="noopener noreferrer">
+                Go to task
+            </a>
         </div>
     </v-timeline-item>
 </template>
@@ -60,9 +64,10 @@ export default {
     text-shadow: 0 0 5px #ffff66;
   }
 
-  .headline {
+  .headline,
+  a {
     text-decoration: none;
-    color: #00cc00;
+    color: #00cc00 !important;
     text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
   }
 </style>

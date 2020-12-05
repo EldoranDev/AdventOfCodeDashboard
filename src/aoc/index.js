@@ -37,7 +37,7 @@ module.exports = {
                     },
                     events: events.map((e) => {
                         e.member = store.createReference('Member', e.member);
-                        
+
                         return eventCollection.addNode(e);
                     }),
                 });
@@ -49,6 +49,7 @@ module.exports = {
                 type: TYPE_START,
                 timestamp: (new Date(2020, 11, i, 6, 0)).getTime() / 1000,
                 day: i,
+                year: config.YEAR,
                 intro: await provider.getDayIntro(i)
             })
         }
