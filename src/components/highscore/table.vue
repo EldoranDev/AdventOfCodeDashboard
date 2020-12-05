@@ -10,9 +10,9 @@
               </th>
           </thead>
           <tbody>
-              <tr v-for="{ node } in $static.allMember.edges" :key="node.id">
-                  <td> <Member :id="Number(node.id)" /></td>
-                  <td> {{ node.score.local }}</td>
+              <tr v-for="member in members" :key="member.id">
+                  <td> <Member :member="member" /></td>
+                  <td> {{ member.score.local }}</td>
 
                   <td v-for="day in 25" :key="day">
 
@@ -23,30 +23,16 @@
   </v-simple-table>
 </template>
 
-<static-query>
-  query {
-    allMember(sortBy: "score.local", order: DESC) {
-      edges {
-        node {
-          id
-          name
-          score {
-            local
-            global
-          }
-        }
-      }
-    }
-  }
-</static-query>
-
 <script>
 import Member from '../member';
 
 export default {
     components: {
         Member
-    }
+    },
+    props: {
+      members: Array
+    },
 }
 </script>
 

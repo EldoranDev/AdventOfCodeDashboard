@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <h1 class="text-h1 font-weight-thin text-center mb-10">Advent of Code 2020</h1>
-    <highscore-table class="mb-10"/>
+    <highscore-table class="mb-10" :members="$page.members.edges.map(({ node }) => node)"/>
     <member-timeline />
   </Layout>
 </template>
@@ -34,7 +34,7 @@ export default {
   },
   metaInfo: {
     title: 'Leaderbord',
-  }
+  },
 }
 </script>
 

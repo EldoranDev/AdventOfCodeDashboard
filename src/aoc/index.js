@@ -6,7 +6,7 @@ const TYPE_STAR = 'STAR';
 const TYPE_START = 'START';
 
 module.exports = {
-    loadSource: async ({addCollection}) => {
+    loadSource: async ({ addCollection, store }) => {
         if (config.CACHE) {
             await cache.setup();
         }
@@ -27,10 +27,6 @@ module.exports = {
             const member = data.members[id];
             const events = getMemberEvents(member);
     
-            for (const event of events) {
-                eventCollection.addNode(event);
-            }
-    
             if (events.length > 0) {
                 memberCollection.addNode({
                     id: Number(id),
@@ -38,7 +34,12 @@ module.exports = {
                     score: {
                         local: member.local_score,
                         global: member.global_score,
-                    }
+                    },
+                    events: events.map((e) => {
+                        e.member = store.createReference('Member', e.member);
+                        
+                        return eventCollection.addNode(e);
+                    }),
                 });
             }
         }

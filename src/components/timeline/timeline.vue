@@ -11,7 +11,14 @@ query {
       node {
         id
         type
-        member
+        member {
+          id
+          name
+          score {
+            local
+            global
+          }
+        }
         timestamp
         part
         day

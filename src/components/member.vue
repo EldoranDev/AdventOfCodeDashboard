@@ -2,7 +2,7 @@
   <span>
     <v-tooltip top>
       <template #activator="{ on, attrs }">
-        <g-link :to="`/member/${id}`">
+        <g-link :to="`/member/${member.id}`">
           <em v-bind="attrs" v-on="on">{{ member.name }}</em>
         </g-link>
       </template>
@@ -11,35 +11,11 @@
   </span>
 </template>
 
-<static-query>
-query {
-  allMember {
-    edges {
-      node {
-        id
-        name
-        score {
-          local
-          global
-        }
-      }
-    }
-  }
-}
-</static-query>
-
 <script>
 export default {
     props: {
-        id: Number,
+        member: Object,
     },
-    computed: {
-        member () {
-          const { node } = this.$static.allMember.edges.find(({ node }) => Number(node.id) === this.id);
-
-          return node;
-        },
-    }
 }
 </script>
 

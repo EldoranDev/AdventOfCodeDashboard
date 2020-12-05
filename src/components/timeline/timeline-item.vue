@@ -10,7 +10,7 @@
             {{ time }}
         </template>
         <div>
-            <Member :id="event.member" /> got a <em class="star">star</em> by solving part {{ event.part }} of day {{ event.day }}
+            <Member :member="event.member" /> got a <em class="star">star</em> by solving part {{ event.part }} of day {{ event.day }}
         </div>
     </v-timeline-item>
     <v-timeline-item  v-else color="green" :right="true">
