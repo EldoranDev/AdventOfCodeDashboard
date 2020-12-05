@@ -1,7 +1,11 @@
 <template>
   <Layout>
     <h1 class="text-h1 font-weight-thin text-center mb-10">Advent of Code 2020</h1>
-    <highscore-table class="mb-10" :members="$page.members.edges.map(({ node }) => node)"/>
+    <highscore-table
+      class="mb-10"
+      :members="$page.members.edges.map(({ node }) => node)"
+      :days="$page.days.edges.map(({ node }) => node)"
+    />
     <member-timeline />
   </Layout>
 </template>
@@ -16,6 +20,27 @@
           score {
             local
             global
+          }
+        }
+      }
+    }
+    days: allDay(sortBy: "id", order: ASC) {
+      edges {
+        node {
+          id
+          first {
+            place
+            part
+            member {
+              id
+            }
+          }
+          second {
+            part
+            place
+            member {
+              id
+            }
           }
         }
       }
