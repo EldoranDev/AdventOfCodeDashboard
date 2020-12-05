@@ -78,7 +78,7 @@ module.exports = {
             if (member.events.length > 0) {
                 memberCollection.addNode({
                     id: member.id,
-                    name: member.data.name || 'Anonymous',
+                    name: getMemberName(member),
                     score: {
                         local: member.data.local_score,
                         global: member.data.global_score,
@@ -111,6 +111,20 @@ module.exports = {
         })
     }
 };
+
+function getMemberName(member) {
+    if (
+        member.data.name
+        && (
+            config.INCLUDE_ALL 
+            || config.INCLUDE_MEMBER.includes(member.id.toString())
+        )
+    ) {
+        return member.data.name;
+    }
+    
+    return 'Anonymous';
+}
 
 function getMemberEvents(member, collection, { store }) {
     if (!member.completion_day_level) {
