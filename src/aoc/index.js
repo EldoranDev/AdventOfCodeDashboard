@@ -60,7 +60,7 @@ module.exports = {
 
             eventCollection.addNode({
                 type: TYPE_START,
-                timestamp: (new Date(2020, 11, i, 6, 0)).getTime() / 1000,
+                timestamp: (Date.UTC(2020, 11, i, 5, 0)) / 1000,
                 day: i,
                 year: config.YEAR,
                 intro: await provider.getDayIntro(i)
