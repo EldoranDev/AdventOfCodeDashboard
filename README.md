@@ -4,6 +4,8 @@
 
 background details relevant to understanding what this module does
 
+[Demo](https://www.marcelbehrmann.de/AdventOfCodeDashboard/)
+
 ## Usage
 
 ```bash
