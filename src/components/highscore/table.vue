@@ -12,28 +12,30 @@
           <tbody>
               <tr v-for="member in members" :key="member.id">
                   <td class="member"> <Member :member="member" /></td>
-                  <td class="score"><div class="d-flex justify-center">{{ member.score.local }}</div></td>
+                  <td><div class="d-flex justify-center">{{ member.score.local }}</div></td>
 
-                  <td v-for="day in days" :key="day.id" width="60">  
+                  <td v-for="day in days" :key="day.id" class="py-0">  
                     <div  class="d-flex justify-center">
-                    <template v-for="i in day.first.length">
-                      <Medal
-                        v-if="day.first[i-1].member.id === member.id"
-                        :key="`1-${i}`"
-                        :medal="day.first[i-1]"
-                      />
-                    </template>
-                    
-                    <template v-for="i in day.second.length">
-                      <Medal
-                        v-if="day.second[i-1].member.id === member.id"
-                        :key="`2-${i}`"
-                        :medal="day.second[i-1]"
-                      />
-                    </template>
+                      <nobr>
+                        <template v-for="i in day.first.length">
+                          <Medal
+                            v-if="day.first[i-1].member.id === member.id"
+                            :key="`1-${i}`"
+                            :medal="day.first[i-1]"
+                          />
+                        </template>
+                        
+                        <template v-for="i in day.second.length">
+                          <Medal
+                            v-if="day.second[i-1].member.id === member.id"
+                            :key="`2-${i}`"
+                            :medal="day.second[i-1]"
+                          />
+                        </template>
+                      </nobr>
                     </div>
                   </td>
-                  <td v-for="day in (25-days.length)" :key="days.length+day" width="60"/>
+                  <td v-for="day in (25-days.length)" :key="days.length+day"/>
               </tr>
           </tbody>
       </template>
@@ -58,10 +60,6 @@ export default {
 
 <style scoped>
   td {
-    padding: 0 !important;
     border: thin solid rgba(255, 255, 255, 0.12);
-  }
-  .member {
-    width: 150px;
   }
 </style>

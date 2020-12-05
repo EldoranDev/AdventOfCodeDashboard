@@ -3,7 +3,7 @@
     <v-tooltip top>
       <template #activator="{ on, attrs }">
         <g-link :to="`/member/${member.id}`">
-          <em v-bind="attrs" v-on="on">{{ member.name }}</em>
+          <nobr><em v-bind="attrs" v-on="on">{{ member.name }}</em></nobr>
         </g-link>
       </template>
       {{ member.score.local}} | {{member.score.global}}
