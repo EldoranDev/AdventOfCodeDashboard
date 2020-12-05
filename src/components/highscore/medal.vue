@@ -1,6 +1,6 @@
 <template>
     <v-icon
-        :small="medal.part === 1"
+        :x-small="medal.part === 1"
         :class="color"
     >
         mdi-medal
