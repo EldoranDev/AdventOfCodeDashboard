@@ -2,6 +2,8 @@ name: Publish Demo
 on:
   workflow_dispatch:
     inputs:
+  schedule:	
+   - cron: "0,30 6-22 * 12 *"
 
 jobs:
   build-and-deploy:
@@ -30,3 +32,5 @@ jobs:
           FOLDER: dist # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
           SINGLE_COMMIT: true
+          GIT_CONFIG_NAME: GH-Actions
+          GIT_CONFIG_EMAIL: "@actions"
