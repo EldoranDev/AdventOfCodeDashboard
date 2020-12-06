@@ -1,6 +1,7 @@
 <template>
   <Layout>
     <h1 class="text-h1 font-weight-thin text-center mb-10">Advent of Charts 2020</h1>
+    <navigation />
     <div class="chart">
         <chart-scatter :chart="completionScatter" style="height: 500px" />
     </div>
@@ -28,11 +29,14 @@
 
 <script>
 import ChartScatter from '../components/charts/scatter';
+import Navigation from '../components/navigation';
+
 import settings from '../components/charts/settings';
 
 export default {
   components: {
       ChartScatter,
+      Navigation,
   },
   metaInfo: {
     title: 'Charts',
