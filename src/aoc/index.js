@@ -51,7 +51,7 @@ module.exports = {
             };
         }
         
-        for (let i = 1; i < (new Date()).getDay(); i++) {
+        for (let i = 1; i <= (new Date()).getDate(); i++) {
             let medals = getMedals(days[i-1], medalCollection, context);
 
             for (let medal of medals) {
