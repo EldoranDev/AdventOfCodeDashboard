@@ -43,11 +43,14 @@ export default {
   },
   computed: {
       days () {
+          //TODO: move computation to build time
           return Array.from( (new Array(25)).keys()).map((day) => ({
             start: (Date.UTC(2020, 11, day, 5) / 1000),
           }));
       },
       completionScatter () {
+          //TODO: move out of this file and try to recude code duplication for charts
+          // Maybe us defaults with deep merge
           return {
               datasets: this.$page.members.edges.map(({node}) => ({
                 borderWith: 1,
@@ -69,6 +72,8 @@ export default {
                         label: (item, _) =>  {
                             const time = new Date(0);
                             time.setSeconds(item.value);
+                            // TODO: switch to better formating for Date related stuff
+                            // (maybe momentjs for calculations/formating)
                             return `Day ${item.label} took ${(item.value/60) | 0} minutes to complete`;
                         },
                     }
@@ -114,6 +119,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-</style>

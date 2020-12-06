@@ -1,6 +1,6 @@
 <template>
     <v-icon
-        :x-small="medal.part === 1"
+        :x-small="part === 1"
         :class="color"
     >
         mdi-medal
@@ -10,11 +10,12 @@
 <script>
 export default {
     props: {
-        medal: Object
+        part: Number,
+        place: Number,
     },
     computed: {
         color() {
-            switch (this.medal.place) {
+            switch (this.place) {
                 case 1: return 'gold';
                 case 2: return 'silver';
                 case 3: return 'bronze';
@@ -26,13 +27,13 @@ export default {
 
 <style scoped>
     .gold {
-        color: gold;
+        color: gold !important;
     }
     .silver {
-        color: silver;
+        color: silver i !important;
     }
 
     .bronze {
-        color: rgb(148, 82, 16);
+        color: rgb(148, 82, 16) !important;
     }
 </style>

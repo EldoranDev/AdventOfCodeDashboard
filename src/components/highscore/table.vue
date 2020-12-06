@@ -21,7 +21,8 @@
                           <Medal
                             v-if="day.first[i-1].member.id === member.id"
                             :key="`1-${i}`"
-                            :medal="day.first[i-1]"
+                            :part="day.first[i-1].part"
+                            :place="day.first[i-1].place"
                           />
                         </template>
                         
@@ -29,7 +30,8 @@
                           <Medal
                             v-if="day.second[i-1].member.id === member.id"
                             :key="`2-${i}`"
-                            :medal="day.second[i-1]"
+                            :part="day.second[i-1].part"
+                            :place="day.second[i-1].place"
                           />
                         </template>
                       </nobr>
