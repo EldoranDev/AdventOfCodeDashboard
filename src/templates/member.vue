@@ -1,8 +1,9 @@
 <template>
     <Layout>
         {{ $page.member }}
-
+        
         <chart-line :data="starData" :options="{}" />
+
     </Layout>
 </template>
 
@@ -33,22 +34,23 @@ export default {
         ChartLine,
     },
     computed: {
+        
         starData () {
             const stars = [];
             let count = 0;
 
             stars.push({ x: 0, y: 0});
-            
+
             for (let event of this.$page.member.events.sort((a, b) => a.timestamp - b.timestamp)) {
                 count++;
                 stars.push({
-                    x: event.timestamp,
+                    x: event.day,
                     y: count,
                 });
             }
 
             return {
-                labels: [0, ...Array.from( (new Array(25)).keys()).map((k) => Date.UTC(2020, 11, k, 5, 0) / 1000)],
+                labels: [0, ...Array.from( (new Array(25)).keys()).map(d => d+1)],
                 datasets: [ {
                     data: stars
                 }],

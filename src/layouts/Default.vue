@@ -26,4 +26,10 @@ query {
   background-color: var(--v-background-base, #121212) !important;
   color: var(--v-primary--text-base )!important;
 }
+
+h1 {
+  text-decoration: none;
+  color: #00cc00;
+  text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+}
 </style>

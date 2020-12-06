@@ -31,7 +31,7 @@ AOC_CACHED=true AOC_YEAR=2020 AOC_SESSION=8asda.... AOC_BOARD=1 npm run build
 
 - [AdventOfCode](https://adventofcode.com)
 - [Gridsome](https://gridsome.org)
-
+- [AdventOfCode Charts](https://github.com/jeroenheijmans/advent-of-code-charts)
 ## License
 
 MIT

@@ -64,9 +64,4 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  text-decoration: none;
-  color: #00cc00;
-  text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
-}
 </style>
