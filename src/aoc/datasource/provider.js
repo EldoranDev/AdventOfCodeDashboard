@@ -18,17 +18,17 @@ module.exports = {
 
         return await fetchFromApi();
     },
-    async getDayIntro (day) {
+    async getDay (day) {
         if (config.CACHE) {
             const key = `${CACHE_INTRO}${day}`;
             if (!await cache.has(key)) {
-                await cache.set(key, await fetchIntro(day));
+                await cache.set(key, JSON.stringify(await fetchDay(day)));
             }
 
-            return await cache.get(key);
+            return JSON.parse(await cache.get(key));
         }
 
-        return await fetchIntro(day);
+        return await fetchDay(day);
     }
 };
 
@@ -37,11 +37,13 @@ async function fetchFromApi() {
     return (await axios.get(`/leaderboard/private/view/${config.BOARD}.json`)).data;
 }
 
-async function fetchIntro(day) {
+async function fetchDay(day) {
     const { data } = await axios.get(`https://adventofcode.com/2020/day/${day}`);
     
     const { document } = (new JSDOM(data)).window;
-    const intro = document.querySelector('p');
-
-    return intro.textContent;
+    
+    return {
+        name: document.querySelector('h2').textContent.split(':')[1].replace('---', '').trim(),
+        intro: document.querySelector('p')
+    }
 }

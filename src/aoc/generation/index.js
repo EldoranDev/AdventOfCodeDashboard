@@ -1,7 +1,14 @@
-const TYPE_STAR = 'STAR';
-const TYPE_START = 'START';
+const dayGenerator = require('./day');
+const memberGenerator = require('./member');
+const eventGenerator = require('./member');
 
-module.exports = (data, context) => {        
+module.exports = async (data, context) => {        
+    const days = await dayGenerator.generate(data, context);
+    const members = memberGenerator.generate(data, context);
+    const events = eventGenerator.generate(data, context);
+
+    console.log(days);
+
     const memberCollection = context.addCollection({
         typeName: 'Member'
     });
@@ -10,77 +17,10 @@ module.exports = (data, context) => {
         typeName: 'Event'
     });
 
-    const medalCollection = context.addCollection({
-        typeName: 'Medal'
-    });
-
     const dayCollection = context.addCollection({
         typeName: 'Day',
-    })
-
-    const days = Array.from( (new Array(25)).keys()).map(() => []);
-
-    const ids = Object.keys(data.members);
-    
-    const members = {};
-
-    for (const id of ids) {
-        const member = data.members[id];
-        const events = getMemberEvents(member, eventCollection, context);
-        
-        events.forEach((event) => {
-            days[event.day-1].push(event);
-        });
-
-        members[id] = {
-            id,
-            data: member,
-            events,
-            medals: [],
-        };
-    }
-    
-    for (let i = 1; i <= (new Date()).getDate(); i++) {
-        let medals = getMedals(days[i-1], medalCollection, context);
-
-        for (let medal of medals) {
-            members[medal.member.id].medals.push(context.store.createReference(medal));
-        }
-
-        eventCollection.addNode({
-            type: TYPE_START,
-            timestamp: (Date.UTC(2020, 11, i, 5, 0)) / 1000,
-            day: i,
-            year: config.YEAR,
-            intro: await provider.getDayIntro(i)
-        });
-
-        dayCollection.addNode({
-            id: i,
-            events: days[i-1],
-            first: medals.filter(({part}) => part === 1),
-            second: medals.filter(({part}) => part === 2),
-        })
-    }
-    
-
-    let memberCount = 0;
-    let colors = getColors(Object.values(members).filter((m) => m.events.length > 0).length);
-
-    for (let member of Object.values(members).filter((m) => m.events.length > 0)) {
-        memberCollection.addNode({
-            id: member.id,
-            color: colors[memberCount++],
-            name: getMemberName(member),
-            score: {
-                local: member.data.local_score,
-                global: member.data.global_score,
-            },
-            events: member.events,
-            medals: member.medals,
-        });
-    }
-};
+    });
+}
 
 function getMemberName(member) {
     if (
@@ -119,13 +59,6 @@ function getMemberEvents(member, collection, { store }) {
     }
 
     return events;
-}
-
-function getColors(n) {
-    const basePalette = ["#781c81", "#6e1980", "#65187f", "#5e187e", "#58197e", "#531b7f", "#4f1d81", "#4c2182", "#492484", "#462987", "#442d8a", "#43328d", "#423791", "#413d94", "#404298", "#3f489c", "#3f4ea0", "#3f53a5", "#3f59a9", "#3f5fad", "#4064b1", "#4069b5", "#416fb8", "#4274bb", "#4379be", "#447dc0", "#4582c1", "#4686c2", "#488ac2", "#4a8ec1", "#4b92c0", "#4d95be", "#4f99bb", "#519cb8", "#549fb4", "#56a2b0", "#58a4ac", "#5ba7a7", "#5ea9a2", "#60ab9d", "#63ad98", "#66af93", "#69b18e", "#6cb289", "#70b484", "#73b580", "#77b67b", "#7ab877", "#7eb973", "#82ba6f", "#85ba6b", "#89bb68", "#8dbc65", "#91bd61", "#95bd5e", "#99bd5c", "#9dbe59", "#a1be56", "#a5be54", "#a9be52", "#adbe50", "#b1be4e", "#b5bd4c", "#b9bd4a", "#bcbc48", "#c0bb47", "#c3ba45", "#c7b944", "#cab843", "#cdb641", "#d0b540", "#d3b33f", "#d6b13e", "#d8ae3d", "#dbab3c", "#dda93b", "#dfa53a", "#e0a239", "#e29e38", "#e39a37", "#e49636", "#e59235", "#e68d34", "#e78833", "#e78332", "#e77d31", "#e77730", "#e7712f", "#e66b2d", "#e6642c", "#e55e2b", "#e4572a", "#e35029", "#e24928", "#e14226", "#df3b25", "#de3424", "#dc2e22", "#db2721", "#d92120"];
-    let step = basePalette.length / n;
-
-    return [...Array(n).keys()].map(i => basePalette[Math.floor(i * step, 0)]);
 }
 
 /**@param {Array} day */

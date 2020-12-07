@@ -11,7 +11,7 @@ module.exports = {
 
         const data = await provider.getLeaderBoard();
     
-        generator(context);
+        await generator(data, context);
     },
     createPages: async ({ createPage, graphql }) => {
         const { data } = await graphql(`{
