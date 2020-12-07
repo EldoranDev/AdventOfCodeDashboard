@@ -8,7 +8,7 @@ module.exports = {
             const day = await getDay(id+1);
 
             collection.push({
-                id,
+                id: id.toString(),
                 start: (Date.UTC(process.env.AOC_YEAR, 11, id, 5) / 1000),
                 name: day.name,
                 intro: day.intro,

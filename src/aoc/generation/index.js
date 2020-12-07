@@ -1,6 +1,7 @@
 const dayGenerator = require('./day');
 const memberGenerator = require('./member');
 const eventGenerator = require('./event');
+const linker = require('./linker');
 
 module.exports = async (data, context) => {        
     const days = await dayGenerator.generate(data, context);
@@ -18,6 +19,10 @@ module.exports = async (data, context) => {
     const dayCollection = context.addCollection({
         typeName: 'Day',
     });
+
+    linker.linkEventsToDays(events, days, context);
+
+    console.log(events[1]);
 
     days.forEach((day) => dayCollection.addNode(day));
     Object.values(members).forEach((member) => memberCollection.addNode(member));
