@@ -7,31 +7,27 @@ const config = require('../config');
 module.exports = {
     TYPE: 'Event',
     generate (data, { store }) {
-        
-    },
-    getEventsOfMember(data, { store }) {
-        if (!member.completion_day_level) {
-            return [];
-        }
-
-        const days = Object.keys(member.completion_day_level);    
         const events = [];
 
-        for (const day of days) {
-            const parts = Object.keys(member.completion_day_level[day]);
+        Object.values(data.members).forEach((member) => {
+            const days = Object.keys(member.completion_day_level);
 
-            for (const part of parts) {
-                events.push({
-                    id: `${member.id}-${day}-${part}`,
-                    type: TYPE_STAR,
-                    member: store.createReference(TYPES.MEMBER, member.id),
-                    timestamp: member.completion_day_level[day][part].get_star_ts,
-                    year: config.YEAR,
-                    day: store.createReference(TYPES.DAY, day),
-                    part: Number(part),
-                });
+            for (const day of days) {
+                const parts = Object.keys(member.completion_day_level[day]);
+
+                for (const part of parts) {
+                    events.push({
+                        id: `${member.id}-${day}-${part}`,
+                        type: TYPE_STAR,
+                        member: store.createReference(TYPES.MEMBER, member.id),
+                        timestamp: member.completion_day_level[day][part].get_star_ts,
+                        year: config.YEAR,
+                        day: store.createReference(TYPES.DAY, day),
+                        part: Number(part),
+                    });
+                }
             }
-        }
+        });
 
         return events;
     },
