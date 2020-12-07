@@ -21,8 +21,17 @@
                         id
                     }
                     part
+                    timeTaken
                     timestamp
                 }
+            }
+        }
+    }
+    days: allDay {
+        edges {
+            node {
+                id
+                start
             }
         }
     }
@@ -44,15 +53,10 @@ export default {
     title: 'Charts',
   },
   computed: {
-      days () {
-          //TODO: move computation to build time
-          return Array.from( (new Array(25)).keys()).map((day) => ({
-            start: (Date.UTC(2020, 11, day, 5) / 1000),
-          }));
-      },
       completionScatter () {
           //TODO: move out of this file and try to recude code duplication for charts
           // Maybe us defaults with deep merge
+          
           return {
               datasets: this.$page.members.edges.map(({node}) => ({
                 borderWith: 1,
@@ -61,8 +65,8 @@ export default {
                 pointRadius: 6,
                 label: node.name, 
                 data: node.events.map((e) => ({
-                    x: e.day,
-                    y: e.timestamp - this.days[e.day].start,
+                    x: e.day.id,
+                    y: e.timeTaken,
                 })) 
             })),
             options: {
@@ -76,7 +80,7 @@ export default {
                             time.setSeconds(item.value);
                             // TODO: switch to better formating for Date related stuff
                             // (maybe momentjs for calculations/formating)
-                            return `Day ${item.label} took ${(item.value/60) | 0} minutes to complete`;
+                            return `Day ${item.label} took ${(item.value/60).toFixed()} minutes to complete`;
                         },
                     }
                 },
