@@ -19,6 +19,11 @@ module.exports = {
                     local: data.members[id].local_score,
                     global: data.members[id].global_score,
                 },
+                medals: [
+                    { place: 1, first: 0, second: 0 },
+                    { place: 2, first: 0, second: 0 },
+                    { place: 3, first: 0, second: 0 },
+                ],
                 events: [],
             }
         }

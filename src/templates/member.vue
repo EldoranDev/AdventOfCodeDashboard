@@ -10,12 +10,12 @@
             <v-simple-table>
                 <template #default>
                     <tbody>
-                        <tr v-for="(medal, i) in medals" :key="i">
+                        <tr v-for="medal in $page.member.medals" :key="medal.place">
                             <td>
-                                <Medal :place="i+1" :part="1" /> / <Medal :place="i+1" :part="2" />
+                                <Medal :place="medal.place" :part="1" /> / <Medal :place="medal.place" :part="2" />
                             </td>
                             <td>
-                                {{ medals[i][0] }} / {{ medals[i][1] }}
+                                {{ medal.first }} / {{ medal.second }}
                             </td>
                         </tr>
                     </tbody>
@@ -36,6 +36,11 @@ query ($memberId: ID){
         id
         name
         color
+        medals {
+            place
+            first
+            second
+        }
         events {
             id
             day {
@@ -64,16 +69,7 @@ export default {
         Navigation,
     },
     computed: {
-        medals () {
-            //TODO: move computation to build time
-            return this.$page.member.medals.reduce((carry, medal) => {
-                carry[medal.place-1][medal.part-1]++;
-
-                return carry;
-            }, [[0 , 0], [0, 0], [0, 0]]);
-        },
         timeTakenBars () {
-
             return {
                 data: {
                     labels: Array.from( (new Array(25)).keys()).map((l) => ++l),
@@ -129,7 +125,7 @@ export default {
                             },
                             scaleLabel: {
                                 display: true,
-                                labelString: "minutes taken per star (log scale)",
+                                labelString: "minutes taken per star",
                                 fontColor: settings.aocColors["main"],
                             },
                             gridLines: {

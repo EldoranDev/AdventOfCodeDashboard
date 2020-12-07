@@ -40,8 +40,16 @@ function linkEventsToMembers(events, _members, days,  { store }) {
             if (event.part === 1) {
                 d[event.day.id] = event;
                 event.timeTaken = event.timestamp - days[event.day.id].start;
+
+                if (event.place < 3) {
+                    member.medals[event.place].first++;
+                }
             } else {
                 event.timeTaken = event.timestamp - d[event.day.id].timestamp;
+
+                if (event.place < 3) {
+                    member.medals[event.place].second++;
+                }
             }
         }
     }
