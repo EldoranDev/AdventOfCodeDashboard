@@ -20,7 +20,7 @@ module.exports = async (data, context) => {
         typeName: 'Day',
     });
 
-    linker.linkEventsToDays(events, days, context);
+    linker.link(context, events, days, members);
 
     console.log(events[1]);
 
