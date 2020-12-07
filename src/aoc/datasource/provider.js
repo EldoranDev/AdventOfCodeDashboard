@@ -47,6 +47,6 @@ async function fetchDay(day) {
     
     return {
         name: document.querySelector('h2').textContent.split(':')[1].replace('---', '').trim(),
-        intro: document.querySelector('p')
+        intro: document.querySelector('p').textContent,
     }
 }

@@ -14,7 +14,7 @@
                   <td class="member"> <Member :member="member" /></td>
                   <td><div class="d-flex justify-center">{{ member.score.local }}</div></td>
 
-                  <td v-for="day in days" :key="day.id" class="px-0">  
+                  <!-- <td v-for="day in days" :key="day.id" class="px-0">  
                     <div  class="d-flex justify-center">
                       <nobr>
                         <template v-for="i in day.first.length">
@@ -36,8 +36,8 @@
                         </template>
                       </nobr>
                     </div>
-                  </td>
-                  <td v-for="day in (25-days.length)" :key="days.length+day"/>
+                  </td>-->
+                  <!-- <td v-for="day in (25-days.length)" :key="days.length+day"/>-->
               </tr>
           </tbody>
       </template>

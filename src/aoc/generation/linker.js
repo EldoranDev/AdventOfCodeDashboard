@@ -39,7 +39,6 @@ function linkEventsToMembers(events, _members, days,  { store }) {
 
             if (event.part === 1) {
                 d[event.day.id] = event;
-                console.log(days[event.day.id].start);
                 event.timeTaken = event.timestamp - days[event.day.id].start;
             } else {
                 event.timeTaken = event.timestamp - d[event.day.id].timestamp;

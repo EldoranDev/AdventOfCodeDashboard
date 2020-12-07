@@ -19,11 +19,15 @@ query {
             global
           }
         }
+        points
         timestamp
         year
-        day
+        day {
+          id
+          intro
+          name
+        }
         part
-        intro
       }
     }
   }

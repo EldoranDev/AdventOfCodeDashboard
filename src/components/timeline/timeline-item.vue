@@ -10,14 +10,16 @@
             {{ time }}
         </template>
         <div>
-            <Member :member="event.member" /> got a <em class="star">star</em> by solving part {{ event.part }} of day {{ event.day }}
+            <Member :member="event.member" /> got a <em class="star">star</em> by solving part {{ event.part }} of day {{ event.day.id }}
         </div>
     </v-timeline-item>
     <v-timeline-item  v-else color="green" :right="true">
         <template #opposite>
-            <span :class="'headline font-weight-light'" v-text="date" />
+            <!-- <span :class="'headline font-weight-light'" v-text="date" />-->
         </template>
         <div class="py-8">
+            {{ event }}
+            <!--
             <h2 :class="'headline font-weight-light mb-4'">
                 Day {{event.day}}
             </h2>
@@ -28,6 +30,7 @@
             <a :href="`https://adventofcode.com/${event.year}/day/${event.day}`" target="_blank" rel="noopener noreferrer">
                 Go to task
             </a>
+            -->
         </div>
     </v-timeline-item>
 </template>

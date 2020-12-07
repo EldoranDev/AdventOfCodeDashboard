@@ -29,20 +29,6 @@
       edges {
         node {
           id
-          first {
-            place
-            part
-            member {
-              id
-            }
-          }
-          second {
-            part
-            place
-            member {
-              id
-            }
-          }
         }
       }
     }

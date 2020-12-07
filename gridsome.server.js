@@ -15,7 +15,7 @@ module.exports = function (api) {
   });
 
   api.createPages(async (actions) => {
-    // await aoc.createPages(actions);
+    await aoc.createPages(actions);
   });
 
   api.chainWebpack((config, { isServer }) => {

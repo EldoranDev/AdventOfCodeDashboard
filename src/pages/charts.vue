@@ -17,7 +17,9 @@
                 name
                 color
                 events {
-                    day
+                    day {
+                        id
+                    }
                     part
                     timestamp
                 }

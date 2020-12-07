@@ -23,42 +23,9 @@ module.exports = async (data, context) => {
     linker.link(context, events, days, members);
 
     days.forEach((day) => dayCollection.addNode(day));
-    Object.values(members).forEach((member) => memberCollection.addNode(member));
+    Object.values(members).forEach((member) => {
+        if (member.events.length === 0) return;
+        memberCollection.addNode(member);
+    });
     events.forEach((event) => eventCollection.addNode(event));
-}
-
-/**@param {Array} day */
-function getMedals(day, collection, { store }) {
-    const fastest = [
-        day.filter((a) => a.part === 1).sort((a, b) => a.timestamp - b.timestamp).slice(0, 3),
-        day.filter((a) => a.part === 2).sort((a, b) => a.timestamp - b.timestamp).slice(0, 3),
-    ];
-
-    const medals = [];
-
-    for (let i = 0; i < fastest[0].length; i++) {
-        let event = fastest[0][i];
-        medals.push(collection.addNode({
-            id: `${event.day}-${event.part}-${i+1}`,
-            place: i+1,
-            day: event.day,
-            part: event.part,
-            member: event.member,
-            event,
-        }));
-    }
-
-    for (let i = 0; i < fastest[1].length; i++) {
-        let event = fastest[1][i];
-        medals.push(collection.addNode({
-            id: `${event.day}-${event.part}-${i+1}`,
-            place: i+1,
-            day: event.day,
-            part: event.part,
-            member: event.member,
-            event,
-        }));
-    }
-
-    return medals;
 }

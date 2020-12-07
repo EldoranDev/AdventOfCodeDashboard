@@ -38,15 +38,13 @@ query ($memberId: ID){
         color
         events {
             id
-            day
+            day {
+                id
+                start
+            }
             part
             timestamp
-        }
-        medals {
-            id
-            day
-            part
-            place
+            timeTaken
         }
     }
 }
@@ -74,11 +72,6 @@ export default {
                 return carry;
             }, [[0 , 0], [0, 0], [0, 0]]);
         },
-        days () {
-            return Array.from( (new Array(25)).keys()).map((day) => ({
-                start: (Date.UTC(2020, 11, day, 5) / 1000),
-            }));
-        },
         timeTakenBars () {
 
             return {
@@ -91,7 +84,7 @@ export default {
                             stack: 'member',
                             data: this.$page.member.events.filter(e => e.part === 1).map((e) => ({
                                 x: e.day,
-                                y: ((e.timestamp - this.days[e.day].start) / 60).toFixed(2),
+                                y: (e.timeTaken / 60).toFixed(2),
                             })),
                             
                         },
@@ -101,7 +94,7 @@ export default {
                             backgroundColor: Chart.helpers.color(this.$page.member.color).alpha(0.5).rgbString(),
                             data: this.$page.member.events.filter(e => e.part === 2).map((e) => ({
                                 x: e.day,
-                                y: ((e.timestamp - this.days[e.day].start) / 60).toFixed(2),
+                                y: (e.timeTaken / 60).toFixed(2),
                             })),
                         }
                     ],
