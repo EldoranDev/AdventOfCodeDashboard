@@ -1,9 +1,9 @@
-let collection = [];
-
 const { getDay } = require('../datasource/provider');
 
 module.exports = {
     async generate (data, context) {
+        const collection = [];
+
         for (let id of Array.from( (new Array(25)).keys())) {
             const day = await getDay(id+1);
 

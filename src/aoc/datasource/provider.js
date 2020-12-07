@@ -19,6 +19,9 @@ module.exports = {
         return await fetchFromApi();
     },
     async getDay (day) {
+        if (Date.now() - Date.UTC(config.YEAR, 11, day, 5, 0) < 0) {
+            return { name: '', intro: '' };
+        }
         if (config.CACHE) {
             const key = `${CACHE_INTRO}${day}`;
             if (!await cache.has(key)) {
