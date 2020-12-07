@@ -3,7 +3,7 @@ const TYPES = require('./types');
 module.exports = {
     link(context, events, days, members) {
         linkEventsToDays(events, days, context);
-        linkEventsToMembers(events, members, context);
+        linkEventsToMembers(events, members, days, context);
     }
 }
 
@@ -27,13 +27,23 @@ function linkEventsToDays(events, days, { store }) {
     }
 }
 
-function linkEventsToMembers(events, _members, { store }) {
+function linkEventsToMembers(events, _members, days,  { store }) {
     const members = Object.values(_members);
+    const d = [];
 
     for(let member of members) {
-        for (let event of events.filter((event) => event.member.id === member.id)) {
+        
+        for (let event of events.filter((event) => event.member.id === member.id).sort((a, b) => a.timestamp - b.timestamp)) {
             member.events.push(store.createReference(TYPES.EVENT, event.id));
-            event.points = (members.length - event.place) + 1
+            event.points = (members.length - event.place);
+
+            if (event.part === 1) {
+                d[event.day.id] = event;
+                console.log(days[event.day.id].start);
+                event.timeTaken = event.timestamp - days[event.day.id].start;
+            } else {
+                event.timeTaken = event.timestamp - d[event.day.id].timestamp;
+            }
         }
     }
 }

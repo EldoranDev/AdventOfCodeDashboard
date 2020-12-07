@@ -22,8 +22,6 @@ module.exports = async (data, context) => {
 
     linker.link(context, events, days, members);
 
-    console.log(events[1]);
-
     days.forEach((day) => dayCollection.addNode(day));
     Object.values(members).forEach((member) => memberCollection.addNode(member));
     events.forEach((event) => eventCollection.addNode(event));

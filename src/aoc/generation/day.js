@@ -1,4 +1,5 @@
 const { getDay } = require('../datasource/provider');
+const config = require('../config');
 
 module.exports = {
     async generate (data, context) {
@@ -9,7 +10,7 @@ module.exports = {
 
             collection.push({
                 id: id.toString(),
-                start: (Date.UTC(process.env.AOC_YEAR, 11, id, 5) / 1000),
+                start: Date.UTC(config.YEAR, 11, id, 5) / 1000,
                 name: day.name,
                 intro: day.intro,
                 events: [],
