@@ -1,10 +1,13 @@
 <template>
-    <v-icon
+    <v-icon v-if="place < 3"
         :x-small="part === 1"
         :class="color"
     >
         mdi-medal
     </v-icon>
+    <span v-else-if="part === 2" class="place">
+        {{ place + 1 }}
+    </span>
 </template>
 
 <script>
@@ -16,9 +19,9 @@ export default {
     computed: {
         color() {
             switch (this.place) {
-                case 1: return 'gold';
-                case 2: return 'silver';
-                case 3: return 'bronze';
+                case 0: return 'gold';
+                case 1: return 'silver';
+                case 2: return 'bronze';
             }
         }
     }
@@ -30,10 +33,15 @@ export default {
         color: gold !important;
     }
     .silver {
-        color: silver i !important;
+        color: silver !important;
     }
 
     .bronze {
         color: rgb(148, 82, 16) !important;
+    }
+
+    .place {
+        color: #cccccc !important;
+        opacity: 0.25;
     }
 </style>

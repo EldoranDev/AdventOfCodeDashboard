@@ -22,7 +22,7 @@ module.exports = {
                         member: store.createReference(TYPES.MEMBER, member.id),
                         timestamp: member.completion_day_level[day][part].get_star_ts,
                         year: config.YEAR,
-                        day: store.createReference(TYPES.DAY, day),
+                        day: store.createReference(TYPES.DAY, day-1),
                         part: Number(part),
                     });
                 }

@@ -14,30 +14,18 @@
                   <td class="member"> <Member :member="member" /></td>
                   <td><div class="d-flex justify-center">{{ member.score.local }}</div></td>
 
-                  <!-- <td v-for="day in days" :key="day.id" class="px-0">  
-                    <div  class="d-flex justify-center">
+                  <td v-for="day in days" :key="day.id" class="px-0 place">
+                    <div class="d-flex justify-center">
                       <nobr>
-                        <template v-for="i in day.first.length">
-                          <Medal
-                            v-if="day.first[i-1].member.id === member.id"
-                            :key="`1-${i}`"
-                            :part="day.first[i-1].part"
-                            :place="day.first[i-1].place"
-                          />
-                        </template>
-                        
-                        <template v-for="i in day.second.length">
-                          <Medal
-                            v-if="day.second[i-1].member.id === member.id"
-                            :key="`2-${i}`"
-                            :part="day.second[i-1].part"
-                            :place="day.second[i-1].place"
-                          />
-                        </template>
+                        <Medal 
+                          v-for="event in Object.values(member.events).filter((e) => e.day.id === day.id)"
+                          :key="event.id"
+                          :place="event.place"
+                          :part="event.part"
+                        />
                       </nobr>
                     </div>
-                  </td>-->
-                  <!-- <td v-for="day in (25-days.length)" :key="days.length+day"/>-->
+                  </td>
               </tr>
           </tbody>
       </template>
@@ -61,7 +49,11 @@ export default {
 </script>
 
 <style scoped>
-  td {
+  td{
     border: thin solid rgba(255, 255, 255, 0.12);
+  }
+
+  td.place {
+    min-width: 50px;
   }
 </style>

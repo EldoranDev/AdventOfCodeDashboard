@@ -22,6 +22,13 @@
             local
             global
           }
+          events {
+            place
+            day {
+              id
+            }
+            part
+          }
         }
       }
     }
