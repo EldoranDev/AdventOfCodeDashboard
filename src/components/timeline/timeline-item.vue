@@ -10,33 +10,31 @@
             {{ time }}
         </template>
         <div>
-            <Member :member="event.member" /> got a <em class="star">star</em> by solving part {{ event.part }} of day {{ event.day.id }}
+            <Member :member="event.member" /> got a <Star :points="event.points" /> by solving part {{ event.part }} of day {{ Number(event.day.id) + 1 }}
         </div>
     </v-timeline-item>
     <v-timeline-item  v-else color="green" :right="true">
         <template #opposite>
-            <!-- <span :class="'headline font-weight-light'" v-text="date" />-->
+            <span :class="'headline font-weight-light'" v-text="date" />
         </template>
         <div class="py-8">
-            {{ event }}
-            <!--
             <h2 :class="'headline font-weight-light mb-4'">
-                Day {{event.day}}
+                Day {{ Number(event.day.id) + 1 }} - {{ event.day.name }}
             </h2>
             <div class="mb-4">
-                {{ event.intro }}
+                {{ event.day.intro }}
             </div>
 
-            <a :href="`https://adventofcode.com/${event.year}/day/${event.day}`" target="_blank" rel="noopener noreferrer">
+            <a :href="`https://adventofcode.com/${event.year}/day/${Number(event.day.id) + 1}`" target="_blank" rel="noopener noreferrer">
                 Go to task
             </a>
-            -->
         </div>
     </v-timeline-item>
 </template>
 
 <script>
 import Member from '../member.vue';
+import Star from '../star.vue';
 
 export default {
     props: {
@@ -44,6 +42,7 @@ export default {
     },
     components: {
         Member,
+        Star
     },
     computed: {
         color () {
@@ -61,12 +60,6 @@ export default {
 
 
 <style scoped>
-  em.star {
-    color: #ffff66;
-    font-style: normal;
-    text-shadow: 0 0 5px #ffff66;
-  }
-
   .headline,
   a {
     text-decoration: none;

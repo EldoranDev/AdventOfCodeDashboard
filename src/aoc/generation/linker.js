@@ -14,7 +14,9 @@ function linkEventsToDays(events, days, { store }) {
         for (let event of events.filter((event) => event.day.id === day.id)) {
             day.events.push(store.createReference(TYPES.EVENT, event.id));
             
-            parts[event.part-1].push(event);
+            if (event.part) {
+                parts[event.part-1].push(event);
+            }
         }
 
         for (let part of parts) {
@@ -33,14 +35,14 @@ function linkEventsToMembers(events, _members, days,  { store }) {
 
     for(let member of members) {
         
-        for (let event of events.filter((event) => event.member.id === member.id).sort((a, b) => a.timestamp - b.timestamp)) {
+        for (let event of events.filter((event) => event.member && event.member.id === member.id).sort((a, b) => a.timestamp - b.timestamp)) {
             member.events.push(store.createReference(TYPES.EVENT, event.id));
-            event.points = (members.length - event.place);
+            event.points = (members.length - event.place);  
 
             if (event.part === 1) {
                 d[event.day.id] = event;
                 event.timeTaken = event.timestamp - days[event.day.id].start;
-
+                
                 if (event.place < 3) {
                     member.medals[event.place].first++;
                 }

@@ -10,11 +10,11 @@ module.exports = {
 
             collection.push({
                 id: id.toString(),
-                start: Date.UTC(config.YEAR, 11, id, 5) / 1000,
+                start: Date.UTC(config.YEAR, 11, id+1, 5) / 1000,
                 name: day.name,
                 intro: day.intro,
                 events: [],
-            } );
+            });
         }
 
         return collection;

@@ -12,7 +12,7 @@
                     <tbody>
                         <tr v-for="medal in $page.member.medals" :key="medal.place">
                             <td>
-                                <Medal :place="medal.place" :part="1" /> / <Medal :place="medal.place" :part="2" />
+                                <Medal :place="medal.place-1" :part="1" /> / <Medal :place="medal.place-1" :part="2" />
                             </td>
                             <td>
                                 {{ medal.first }} / {{ medal.second }}

@@ -29,15 +29,22 @@ module.exports = {
             }
         });
 
+        for (let id = 0; id < 25; id++) {
+            const timestamp = Date.UTC(config.YEAR, 11, id, 5);
+            
+            if (timestamp > Date.now()) {
+                continue;
+            }
+
+            events.push({
+                id: `start-${id}`,
+                timestamp: timestamp / 1000,
+                type: TYPE_START,
+                year: config.YEAR,
+                day: store.createReference(TYPES.DAY, id-1)
+            });
+        }
+
         return events;
     },
-    getStartEvent({ day, timestamp }, { store }) {
-        return {
-            id: `start-${day}`,
-            type: TYPE_START,
-            timestamp,
-            year: config.YEAR,
-            day: store.createReference(TYPES.DAY, day),
-        }
-    }
 };
