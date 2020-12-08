@@ -29,7 +29,7 @@ module.exports = {
             }
         });
 
-        for (let id = 0; id < 25; id++) {
+        for (let id = 1; id <= 25; id++) {
             const timestamp = Date.UTC(config.YEAR, 11, id, 5);
             
             if (timestamp > Date.now()) {

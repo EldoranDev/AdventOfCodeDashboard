@@ -9,7 +9,7 @@ module.exports = {
             const day = await getDay(id+1);
 
             collection.push({
-                id: id.toString(),
+                id: id,
                 start: Date.UTC(config.YEAR, 11, id+1, 5) / 1000,
                 name: day.name,
                 intro: day.intro,

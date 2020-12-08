@@ -22,7 +22,7 @@
                 </template>
             </v-simple-table>
         </v-row>
-        <v-row>
+        <v-row v-if="isMounted">
             <v-col>
                 <chart-bar :chart="timeTakenBars" />
             </v-col>
@@ -67,6 +67,14 @@ export default {
         ChartBar,
         Medal,
         Navigation,
+    },
+    data() {
+        return {
+            isMounted: false,
+        }
+    },
+    mounted() {
+        this.isMounted = true;
     },
     computed: {
         timeTakenBars () {

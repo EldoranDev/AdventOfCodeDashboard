@@ -10,15 +10,15 @@ module.exports = {
 function linkEventsToDays(events, days, { store }) {
     for (let day of days) {
         let parts = [[], []];
-
-        for (let event of events.filter((event) => event.day.id === day.id)) {
+        
+        for (let event of events.filter((event) => Number(event.day.id) === Number(day.id))) {
             day.events.push(store.createReference(TYPES.EVENT, event.id));
-            
+
             if (event.part) {
                 parts[event.part-1].push(event);
             }
         }
-
+        
         for (let part of parts) {
             let place = 0;
 
