@@ -1,17 +1,22 @@
 <template>
-    <span v-if="place < 3"
-        :x-small="part === 1"
+    <a-icon v-if="place < 3"
+        :small="part === 1"
         :class="color"
     >
         mdi-medal
-    </span>
+    </a-icon>
     <span v-else-if="part === 2" class="place">
         {{ place + 1 }}
     </span>
 </template>
 
 <script>
+import AIcon from '../icon';
+
 export default {
+    components: {
+        AIcon
+    },
     props: {
         part: Number,
         place: Number,

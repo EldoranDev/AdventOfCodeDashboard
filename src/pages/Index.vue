@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <h1 class="text-h1 font-weight-thin text-center mb-10">Advent of Code 2020</h1>
+    <h1 class="headline">Advent of Code 2020</h1>
     <navigation />
     <highscore-table
       class="mb-10"
@@ -57,7 +57,12 @@ export default {
     title: 'Leaderbord',
   },
 }
+// // text-5xl font-weight-thin text-center mb-10
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
+.headline {
+  @apply text-7xl text-center font-thin pt-3;
+  font-family: "Roboto";
+}
 </style>
