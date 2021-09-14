@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
-      <g-link class="mx-4" to="/">Highscore</g-link>
-      <g-link class="mx-4" to="/charts">Charts</g-link>
+      <!--<g-link class="mx-4" to="/">Highscore</g-link>
+      <g-link class="mx-4" to="/charts">Charts</g-link>-->
   </nav>
 </template>
 

@@ -57,7 +57,6 @@ export default {
     title: 'Leaderbord',
   },
 }
-// // text-5xl font-weight-thin text-center mb-10
 </script>
 
 <style lang="postcss" scoped>
