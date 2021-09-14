@@ -1,9 +1,12 @@
 <template>
-    <span :class="classes"></span>
+    <span>
+        <slot name="activator" />
+    </span>
 </template>
 
 <script>
 export default {
+    name: 'a-tooltip',
     props: {
         small: Boolean,
     },

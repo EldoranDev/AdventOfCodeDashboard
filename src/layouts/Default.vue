@@ -17,10 +17,7 @@ query {
 <style>
 html {
   color: #ccc;
-}
-
-.app {
-  background-color: #0f0f23;
+   background-color: #0f0f23;
 }
 
 h1 {

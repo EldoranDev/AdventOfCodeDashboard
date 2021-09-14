@@ -10,19 +10,21 @@
     </thead>
     <tbody>
         <tr v-for="member in members" :key="member.id">
-            <td class="member"> <Member :member="member" /></td>
-            <td><div class="flex justify-center">{{ member.score.local }}</div></td>
-            <td v-for="day in days" :key="day.id" class="px-0 place">
-              <div class="flex justify-center">
-                <nobr>
-                  <Medal 
-                    v-for="event in Object.values(member.events).filter((e) => e.day.id === day.id)"
-                    :key="event.id"
-                    :place="event.place"
-                    :part="event.part"
-                  />
-                </nobr>
-              </div>
+            <td class="member">
+              <Member :member="member" />
+            </td>
+            <td class="score">
+              {{ member.score.local }}
+            </td>
+            <td v-for="day in days" :key="day.id" class="place">
+              <nobr>
+                <Medal 
+                  v-for="event in Object.values(member.events).filter((e) => e.day.id === day.id)"
+                  :key="event.id"
+                  :place="event.place"
+                  :part="event.part"
+                />
+              </nobr>
             </td>
         </tr>
     </tbody>
@@ -49,8 +51,16 @@ export default {
   td {
     border: thin solid rgba(255, 255, 255, 0.12);
   }
+  .member {
+    @apply p-2;
+  }
 
-  td.place {
-    min-width: 50px;
+  .score {
+    @apply flex justify-center p-2;
+  }
+
+  .place {
+    text-align: center;
+    min-width: 50px;  
   }
 </style>
