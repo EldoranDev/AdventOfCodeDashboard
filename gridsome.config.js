@@ -6,6 +6,10 @@
 
 module.exports = {
   siteName: 'AoC 2020',
-  plugins: [],
+  plugins: [
+    {
+      use: 'gridsome-plugin-tailwindcss',
+    }
+  ],
   pathPrefix: process.env.GRIDSOME_PATH_PREFIX || '/',
 }

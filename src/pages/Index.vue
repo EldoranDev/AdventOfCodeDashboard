@@ -7,7 +7,7 @@
       :members="$page.members.edges.map(({ node }) => node)"
       :days="$page.days.edges.map(({ node }) => node)"
     />
-    <member-timeline />
+    <!--<member-timeline />-->
   </Layout>
 </template>
 

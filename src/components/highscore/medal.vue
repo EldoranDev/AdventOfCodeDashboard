@@ -1,10 +1,10 @@
 <template>
-    <v-icon v-if="place < 3"
+    <span v-if="place < 3"
         :x-small="part === 1"
         :class="color"
     >
         mdi-medal
-    </v-icon>
+    </span>
     <span v-else-if="part === 2" class="place">
         {{ place + 1 }}
     </span>

@@ -1,5 +1,3 @@
-const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
-
 const aoc = require('./src/aoc');
 
 // Server API makes it possible to hook into various parts of Gridsome
@@ -16,9 +14,5 @@ module.exports = function (api) {
 
   api.createPages(async (actions) => {
     await aoc.createPages(actions);
-  });
-
-  api.chainWebpack((config, { isServer }) => {
-    config.plugin('vuetify-loader').use(VuetifyLoaderPlugin);
   });
 }
