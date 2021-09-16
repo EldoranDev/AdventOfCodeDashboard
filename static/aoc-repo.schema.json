@@ -1,0 +1,47 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://www.marcelbehrmann.de/AdventOfCodeDashboard/aoc-repo.schema.json",
+    "title": "AOC Config",
+    "description": "Configuration for the link to AdventOfCodeDashboard",
+    "type": "object",
+    "required": ["id"],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "description": "Advent of Code User ID"
+        },
+        "repo": {
+            "type": "string",
+            "description": "Link to the git repository"
+        },
+        "language": {
+            "type": "string",
+            "description": "Used programming language"
+        },
+        "solutions": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/solution" }
+        }
+    },
+    "$defs": {
+        "solution": {
+            "type:": "object",
+            "required": ["day", "link"],
+            "properties": {
+                "day": {
+                    "type": "integer",
+                    "description": "Day of the solution"
+                },
+                "link": {
+                    "oneOf": [
+                        { "type": "string" },
+                        { 
+                            "type": "array",
+                            "items": { "type": "string" }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
