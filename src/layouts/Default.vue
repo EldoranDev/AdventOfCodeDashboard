@@ -1,6 +1,8 @@
 <template>
   <div class="app">
     <div class="container mx-auto">
+      <h1 class="headline">Advent of Code 2020</h1>
+      <navigation />
       <slot/>
     </div>
   </div>  
@@ -14,15 +16,29 @@ query {
 }
 </static-query>
 
-<style>
-html {
-  color: #ccc;
-   background-color: #0f0f23;
-}
+<script>
+import Navigation from '../components/navigation';
 
-h1 {
+export default {
+  components: { Navigation },  
+}
+</script>
+
+<style>
+
+</style>
+
+<style lang="postcss">
+.headline {
+  @apply text-7xl text-center font-thin pt-3;
+  font-family: "Roboto";
   text-decoration: none;
   color: #00cc00;
   text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+}
+
+html {
+  color: #ccc;
+   background-color: #0f0f23;
 }
 </style>

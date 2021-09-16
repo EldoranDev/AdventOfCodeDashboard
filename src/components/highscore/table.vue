@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table class="highscore">
     <thead>
         <th>Member</th>
         <th>Score</th>
@@ -10,13 +10,13 @@
     </thead>
     <tbody>
         <tr v-for="member in members" :key="member.id">
-            <td class="member">
+            <td class="highscore__member">
               <Member :member="member" />
             </td>
-            <td class="score">
+            <td class="highscore__score">
               {{ member.score.local }}
             </td>
-            <td v-for="day in days" :key="day.id" class="place">
+            <td v-for="day in days" :key="day.id" class="highscore__place">
               <nobr>
                 <Medal 
                   v-for="event in Object.values(member.events).filter((e) => e.day.id === day.id)"
@@ -47,20 +47,20 @@ export default {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="postcss">
   td {
     border: thin solid rgba(255, 255, 255, 0.12);
   }
-  .member {
+  .highscore__member {
     @apply p-2;
   }
 
-  .score {
+  .highscore__score {
     @apply flex justify-center p-2;
   }
 
-  .place {
+  .highscore__place {
     text-align: center;
-    min-width: 50px;  
+    min-width: 50px;
   }
 </style>

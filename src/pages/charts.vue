@@ -1,7 +1,5 @@
 <template>
   <Layout>
-    <h1 class="text-h1 font-weight-thin text-center mb-10">Advent of Charts 2020</h1>
-    <navigation />
     <div class="chart">
         <chart-scatter :chart="completionScatter" style="height: 500px" />
     </div>
@@ -40,14 +38,13 @@
 
 <script>
 import ChartScatter from '../components/charts/scatter';
-import Navigation from '../components/navigation';
+
 
 import settings from '../components/charts/settings';
 
 export default {
   components: {
       ChartScatter,
-      Navigation,
   },
   metaInfo: {
     title: 'Charts',
@@ -73,51 +70,62 @@ export default {
                 responsive: true,
                 maintainAspectRatio: false,
                 styles: "height: 600px",
-                tooltips: {
-                    callbacks: {
-                        label: (item, _) =>  {
-                            const time = new Date(0);
-                            time.setSeconds(item.value);
-                            // TODO: switch to better formating for Date related stuff
-                            // (maybe momentjs for calculations/formating)
-                            return `Day ${item.label} took ${(item.value/60).toFixed()} minutes to complete`;
-                        },
-                    }
+                layout: {
+                    padding: '10px',
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: (item, _) =>  {
+                                console.log(item);
+                                const time = new Date(0);
+                                time.setSeconds(item.value);
+                                // TODO: switch to better formating for Date related stuff
+                                // (maybe momentjs for calculations/formating)
+                                return `Day ${item.label} took ${(item.parsed.y/60).toFixed()} minutes to complete`;
+                            },
+                        }
+                    },
                 },
                 legend: {
                     position: "right",
                     labels: {
-                        fontColor: settings.aocColors["main"],
+                        color: settings.aocColors["main"],
                     },        
                 },
                 scales: {
-                    xAxes: [{
-                        ticks: { min: 0, max: 25, stepSize: 1},
-                        scaleLabel: {
+                    xAxis: {
+                        min: 0,
+                        max: 25,
+                        title: {
                             display: true,
-                            labelString: "Day of Advent",
-                            fontColor: settings.aocColors["main"],
+                            align: 'center',
+                            text: "Day of Advent",
+                            color: settings.aocColors["main"],
                         },
-                        gridLines: {
+                        grid: {
                             color: settings.aocColors["tertiary"],
                             zeroLinecolor: settings.aocColors["secondary"],
+                        },
+                        ticks: {
+                            stepSize: 1,
                         }
-                    }],
-                    yAxes: [{
+                    },
+                    yAxis: {
                         type: "logarithmic",
                         ticks: {
-                                fontColor: settings.aocColors["main"],
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: "minutes taken per star (log scale)",
-                                fontColor: settings.aocColors["main"],
-                            },
-                            gridLines: {
-                                color: settings.aocColors["tertiary"],
-                                zeroLineColor: settings.aocColors["secondary"],
-                            },
-                    }]
+                            color: settings.aocColors["main"],
+                        },
+                        title: {
+                            display: true,
+                            text: "minutes taken per star (log scale)",
+                            color: settings.aocColors["main"],
+                        },
+                        grid: {
+                            color: settings.aocColors["tertiary"],
+                            zeroLineColor: settings.aocColors["secondary"],
+                        },
+                    }
                 }
             },
           };

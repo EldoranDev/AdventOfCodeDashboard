@@ -14,9 +14,13 @@
 </template>
 
 <script>
+import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiMedal } from '@mdi/js';
 
 export default {
+    components: {
+        SvgIcon,
+    },
     props: {
         part: Number,
         place: Number,
@@ -39,8 +43,7 @@ export default {
 }
 </script>
 
-<style lang="postcss" scoped>
-    
+<style lang="postcss">
     .medal--gold {
         color: gold;
     }

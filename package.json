@@ -7,12 +7,12 @@
     "explore": "gridsome explore"
   },
   "dependencies": {
-    "@jamescoyle/svg-icon": "^0.1.1",
     "axios": "^0.21.4",
     "chart.js": "^3.5.1",
     "gridsome": "^0.7.0"
   },
   "devDependencies": {
+    "@jamescoyle/vue-icon": "^0.1.2",
     "@mdi/js": "^6.1.95",
     "autoprefixer": "^9.8.6",
     "deepmerge": "^4.2.2",
