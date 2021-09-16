@@ -26,8 +26,12 @@
     "$defs": {
         "solution": {
             "type:": "object",
-            "required": ["day", "link"],
+            "required": ["year", "day", "link"],
             "properties": {
+                "year": {
+                    "type": "integer",
+                    "description": "Year of the solution"
+                },
                 "day": {
                     "type": "integer",
                     "description": "Day of the solution"
