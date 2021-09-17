@@ -17,14 +17,12 @@
               {{ member.score.local }}
             </td>
             <td v-for="day in days" :key="day.id" class="highscore__place">
-              <nobr>
-                <Medal 
-                  v-for="event in Object.values(member.events).filter((e) => e.day.id === day.id)"
-                  :key="event.id"
-                  :place="event.place"
-                  :part="event.part"
-                />
-              </nobr>
+              <Medal 
+                v-for="event in Object.values(member.events).filter((e) => e.day.id === day.id)"
+                :key="event.id"
+                :place="event.place"
+                :part="event.part"
+              />
             </td>
         </tr>
     </tbody>
@@ -60,7 +58,7 @@ export default {
   }
 
   .highscore__place {
-    text-align: center;
+    @apply text-center;
     min-width: 50px;
   }
 </style>

@@ -1,17 +1,21 @@
 <template>
-    <Layout>
-        <div class="member__row">
-            <h2 class="member__name">{{ $page.member.name }}</h2>
+    <Layout class="member">
+        <div class="row">
+            <h2 class="name">{{ $page.member.name }}</h2>
         </div> 
         <repo
             v-if="$page.member.repo"
-            class="member__row"
+            class="member row"
             :repo="$page.member.repo"
         />
-        <div class="member__row">
-            <table>
+        <div class="row">
+            <table class="medals">
                 <tbody>
-                    <tr v-for="medal in $page.member.medals" :key="medal.place">
+                    <tr
+                        v-for="medal in $page.member.medals"
+                        :key="medal.place"
+                        class="row"
+                    >
                         <td>
                             <Medal :place="medal.place-1" :part="1" /> / <Medal :place="medal.place-1" :part="2" />
                         </td>
@@ -23,9 +27,7 @@
             </table>
         </div>
         <div v-if="isMounted">
-            <div>
-                <!--<chart-bar :chart="timeTakenBars" />-->
-            </div>
+            <chart-bar :chart="timeTakenBars" />
         </div>
     </Layout>
 </template>
@@ -71,8 +73,6 @@ import ChartBar from '../components/charts/bar.vue';
 import settings from '../components/charts/settings';
 import Repo from '../components/member/repo';
 
-import { Chart } from 'chart.js';
-
 export default {
     components: {
         ChartBar,
@@ -96,63 +96,60 @@ export default {
                     datasets: [
                         {
                             label: "Part 1",
-                            backgroundColor: this.$page.member.color,
+                            backgroundColor: `${this.$page.member.color}`,
                             stack: 'member',
                             data: this.$page.member.events.filter(e => e.part === 1).map((e) => ({
-                                x: e.day,
-                                y: (e.timeTaken / 60).toFixed(2),
+                                x: Number(e.day.id),
+                                y: Number((e.timeTaken / 60).toFixed(2)),
                             })),
                             
                         },
                         {
                             label: "Part 2",
                             stack: 'member',
-                            backgroundColor: Chart.helpers.color(this.$page.member.color).alpha(0.5).rgbString(),
+                            backgroundColor: `${this.$page.member.color}66`,
                             data: this.$page.member.events.filter(e => e.part === 2).map((e) => ({
-                                x: e.day,
-                                y: (e.timeTaken / 60).toFixed(2),
+                                x: Number(e.day.id),
+                                y: Number((e.timeTaken / 60).toFixed(2)),
                             })),
                         }
                     ],
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    /*legend: {
+                    legend: {
                         position: "right",
                         labels: {
-                            fontColor: settings.aocColors["main"],
+                            color: settings.aocColors["main"],
                         },        
-                    },*/
+                    },
                     scales: {
-                       xAxes: [{
+                       xAxes: {
                             stacked: true,
-                            scaleLabel: {
+                            title: {
                                 display: true,
-                                labelString: "Day of Advent",
-                                fontColor: settings.aocColors["main"],
+                                text: "Day of Advent",
+                                color: settings.aocColors["main"],
                             },
-                            gridLines: {
+                            grid: {
                                 color: settings.aocColors["tertiary"],
                                 zeroLinecolor: settings.aocColors["secondary"],
                             }
-                        }],
-                        yAxes: [{
-                            // type: "",
+                        },
+                        yAxes: {
                             ticks: {
-                                fontColor: settings.aocColors["main"],
+                                color: settings.aocColors["main"],
                                 beginAtZero: true,
                             },
-                            scaleLabel: {
+                            title: {
                                 display: true,
-                                labelString: "minutes taken per star",
-                                fontColor: settings.aocColors["main"],
+                                text: "minutes taken per star",
+                                color: settings.aocColors["main"],
                             },
-                            gridLines: {
+                            grid: {
                                 color: settings.aocColors["tertiary"],
                                 zeroLineColor: settings.aocColors["secondary"],
                             },
-                        }]
+                        }
                     }
                 }
             }
@@ -162,11 +159,30 @@ export default {
 </script>
 
 <style lang="postcss">
-    .member__row {
-        @apply flex flex-wrap justify-center flex-auto;
-    }
+    .member {
+        & .row {
+            @apply flex flex-wrap justify-center flex-auto mt-5;
+        }
 
-    .member__name {
-        @apply text-2xl;
+        & .name {
+            @apply text-2xl;
+        }
+
+        & .medals {
+            & > tbody > .row {
+                @apply h-12;
+
+                & td {
+                    @apply px-4;
+                    vertical-align: middle;
+                }
+
+                &:not(:last-of-type) {
+                    &> td {
+                        border-bottom: thin solid hsla(0,0%,100%,.12);
+                    }
+                }
+            } 
+        }
     }
 </style>

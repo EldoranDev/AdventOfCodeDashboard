@@ -38,8 +38,6 @@
 
 <script>
 import ChartScatter from '../components/charts/scatter';
-
-
 import settings from '../components/charts/settings';
 
 export default {

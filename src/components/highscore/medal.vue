@@ -5,10 +5,11 @@
         type="mdi" 
         
         :path="medal"
+        class="medal"
         :class="classes"
         :size="size"
     />
-    <span v-else-if="part === 2" class="place">
+    <span v-else-if="part === 2" class="medal medal--place">
         {{ place + 1 }}
     </span>
 </template>
@@ -44,6 +45,10 @@ export default {
 </script>
 
 <style lang="postcss">
+    .medal {
+        display: inline;
+    }
+
     .medal--gold {
         color: gold;
     }
@@ -61,7 +66,7 @@ export default {
         width: 12px;
     }
 
-    .place {
+    .medal--place {
         color: #cccccc;
         opacity: 0.25;
     }

@@ -1,9 +1,14 @@
 <script>
+import Chart from './chart';
+
 export default {
+    extends: Chart,
     props: ['chart'],
-    
+    data() {
+        return {};
+    },
     mounted() {
-        this.renderChart(this.chart.data, this.chart.options);
+        this.renderChart('bar', this.chart.data, this.chart.options);
     }
 }
 </script>
