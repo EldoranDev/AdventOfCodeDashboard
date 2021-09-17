@@ -1,26 +1,36 @@
 <template>
-  <span class="member-link">
-    <a-tooltip top>
-      <template #activator="{ on, attrs }">
-        <g-link :to="`/member/${member.id}`">
-          <nobr><em class="member-link__name" v-bind="attrs" v-on="on">{{ member.name }}</em></nobr>
-        </g-link>
-      </template>
-      {{ member.score.local}} | {{member.score.global}}
-    </a-tooltip>
-  </span>
+  <g-link :to="`/member/${member.id}`">
+    <nobr>
+      <em class="member-link__name" v-bind="attrs" v-on="on">
+        {{ member.name }}
+        <svg-icon
+          v-if="member.repo && member.repo.language"
+          type="mdi"
+          class="member-link__icon"
+
+          :path="languageIcon"
+        />
+      </em>
+    </nobr>
+  </g-link>
 </template>
 
 <script>
-import ATooltip from './tooltip';
+import { getLanguageIcon } from '../utils/icons';
+import SvgIcon from '@jamescoyle/vue-icon';
 
 export default {
     components: {
-      ATooltip,
+      SvgIcon
     },
     props: {
         member: Object,
     },
+    computed: {
+      languageIcon() {
+        return getLanguageIcon(this.member.repo.language);
+      }
+    }
 }
 </script>
 
@@ -29,5 +39,9 @@ export default {
       color: #ffffff;
       font-style: normal;
       text-shadow: 0 0 5px #ffffff;
+  }
+
+  .member-link__icon {
+    display: inline;
   }
 </style>

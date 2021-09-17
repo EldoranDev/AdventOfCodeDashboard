@@ -15,6 +15,9 @@
         node {
           id
           name
+          repo {
+            language
+          }
           score {
             local
             global
