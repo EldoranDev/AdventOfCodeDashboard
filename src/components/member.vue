@@ -1,11 +1,10 @@
 <template>
-  <span class="member">
+  <span class="member-link">
     <a-tooltip top>
       <template #activator="{ on, attrs }">
-        <!--<g-link :to="`/member/${member.id}`">
-          <nobr><em v-bind="attrs" v-on="on">{{ member.name }}</em></nobr>
-        </g-link>-->
-        <nobr><em class="member__name" v-bind="attrs" v-on="on">{{ member.name }}</em></nobr>
+        <g-link :to="`/member/${member.id}`">
+          <nobr><em class="member-link__name" v-bind="attrs" v-on="on">{{ member.name }}</em></nobr>
+        </g-link>
       </template>
       {{ member.score.local}} | {{member.score.global}}
     </a-tooltip>
@@ -26,7 +25,7 @@ export default {
 </script>
 
 <style lang="postcss">
-  .member__name {
+  .member-link__name {
       color: #ffffff;
       font-style: normal;
       text-shadow: 0 0 5px #ffffff;

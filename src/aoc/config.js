@@ -8,4 +8,5 @@ module.exports = {
     CACHE_DIR: path.resolve(__dirname, '..', '..', '.aoc'),
     INCLUDE_MEMBER: process.env.AOC_INCLUDE ? process.env.AOC_INCLUDE.split(',') : [],
     INCLUDE_ALL: process.env.AOC_INCLUDE ? false : !!process.env.AOC_INCLUDE_ALL,
+    REPOS: process.env.AOC_REPOS ? JSON.parse(process.env.AOC_REPOS) : [],
 };

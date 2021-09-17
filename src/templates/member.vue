@@ -1,32 +1,32 @@
 <template>
     <Layout>
-        <h1 class="text-h1 font-weight-thin text-center mb-10">Advent of Code 2020</h1>
-        <navigation />
-
-        <v-row class="justify-center mb-10">
-        <h2>{{ $page.member.name }}</h2>
-        </v-row> 
-        <v-row class="justify-center">
-            <v-simple-table>
-                <template #default>
-                    <tbody>
-                        <tr v-for="medal in $page.member.medals" :key="medal.place">
-                            <td>
-                                <Medal :place="medal.place-1" :part="1" /> / <Medal :place="medal.place-1" :part="2" />
-                            </td>
-                            <td>
-                                {{ medal.first }} / {{ medal.second }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </template>
-            </v-simple-table>
-        </v-row>
-        <v-row v-if="isMounted">
-            <v-col>
-                <chart-bar :chart="timeTakenBars" />
-            </v-col>
-        </v-row>
+        <div class="member__row">
+            <h2 class="member__name">{{ $page.member.name }}</h2>
+        </div> 
+        <repo
+            v-if="$page.member.repo"
+            class="member__row"
+            :repo="$page.member.repo"
+        />
+        <div class="member__row">
+            <table>
+                <tbody>
+                    <tr v-for="medal in $page.member.medals" :key="medal.place">
+                        <td>
+                            <Medal :place="medal.place-1" :part="1" /> / <Medal :place="medal.place-1" :part="2" />
+                        </td>
+                        <td>
+                            {{ medal.first }} / {{ medal.second }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div v-if="isMounted">
+            <div>
+                <!--<chart-bar :chart="timeTakenBars" />-->
+            </div>
+        </div>
     </Layout>
 </template>
 
@@ -36,6 +36,15 @@ query ($memberId: ID){
         id
         name
         color
+        repo {
+          language
+          repo
+          solutions {
+            year
+            day
+            link
+          }
+        }
         medals {
             place
             first
@@ -60,6 +69,8 @@ import Medal from '../components/highscore/medal.vue';
 import Navigation from '../components/navigation.vue';
 import ChartBar from '../components/charts/bar.vue';
 import settings from '../components/charts/settings';
+import Repo from '../components/member/repo';
+
 import { Chart } from 'chart.js';
 
 export default {
@@ -67,6 +78,7 @@ export default {
         ChartBar,
         Medal,
         Navigation,
+        Repo,
     },
     data() {
         return {
@@ -148,3 +160,13 @@ export default {
     }
 }
 </script>
+
+<style lang="postcss">
+    .member__row {
+        @apply flex flex-wrap justify-center flex-auto;
+    }
+
+    .member__name {
+        @apply text-2xl;
+    }
+</style>
