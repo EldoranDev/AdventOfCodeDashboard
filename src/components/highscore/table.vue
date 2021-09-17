@@ -46,19 +46,22 @@ export default {
 </script>
 
 <style lang="postcss">
-  td {
-    border: thin solid rgba(255, 255, 255, 0.12);
-  }
-  .highscore__member {
-    @apply p-2;
-  }
+  .highscore {
+    & td {
+      border: thin solid rgba(255, 255, 255, 0.12);
+    }
+    
+    & .highscore__member {
+      @apply p-2;
+    }
 
-  .highscore__score {
-    @apply flex justify-center p-2;
-  }
+    & .highscore__score {
+      @apply flex justify-center p-2;
+    }
 
-  .highscore__place {
-    @apply text-center;
-    min-width: 50px;
+    & .highscore__place {
+      @apply text-center;
+      min-width: 50px;
+    }
   }
 </style>
