@@ -19,7 +19,7 @@ jobs:
           AOC_INCLUDE: 384199
           AOC_SESSION: ${{ secrets.AOC_SESSION }}
           GRIDSOME_PATH_PREFIX: /AdventOfCodeDashboard
-          AOC_REPOS: '["https://raw.githubusercontent.com/EldoranDev/AdventOfCode/main/aoc-repo.json"]'
+          AOC_REPOS: ["https://raw.githubusercontent.com/EldoranDev/AdventOfCode/main/aoc-repo.json"]
         run: |
           npm ci 
           npm run build
