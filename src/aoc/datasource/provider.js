@@ -52,7 +52,7 @@ module.exports = {
 
                 repos.push(JSON.parse(await cache.get(key)));
             } else {
-                repos.push(JSON.parse(await fetchRepo(repo)));
+                repos.push(await fetchRepo(repo));
             }
         }
 
