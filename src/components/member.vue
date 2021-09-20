@@ -1,7 +1,7 @@
 <template>
   <g-link :to="`/member/${member.id}`">
     <nobr>
-      <em class="member-link__name" v-bind="attrs" v-on="on">
+      <em class="member-link__name">
         {{ member.name }}
         <svg-icon
           v-if="member.repo && member.repo.language"

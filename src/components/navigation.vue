@@ -2,7 +2,7 @@
   <nav class="navigation">
       <g-link class="link" to="/">Highscore</g-link>
       <g-link class="link" to="/charts">Charts</g-link>
-      <g-link class="link" to="/history">History</g-link>
+      <g-link class="link" to="/timeline">Timeline</g-link>
   </nav>
 </template>
 

@@ -1,12 +1,7 @@
 <template>
-<v-tooltip top>
-  <template #activator="{ on, attrs }">
-    <span v-bind="attrs" v-on="on">
+  <span>
       star
-    </span>
-  </template>
-  worth {{ points }} points
-</v-tooltip>
+  </span>
 </template>
 
 

@@ -4,7 +4,6 @@
       :members="$page.members.edges.map(({ node }) => node)"
       :days="$page.days.edges.map(({ node }) => node)"
     />
-    <!--<member-timeline />-->
   </Layout>
 </template>
 
@@ -43,13 +42,11 @@
 </page-query>
 
 <script>
-import MemberTimeline from '../components/timeline/timeline.vue';
 import HighscoreTable from '../components/highscore/table.vue';
 
 export default {
   components: {
     HighscoreTable,
-    MemberTimeline,
   },
   metaInfo: {
     title: 'Leaderbord',
