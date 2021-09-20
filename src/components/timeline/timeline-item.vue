@@ -112,20 +112,19 @@ export default {
     }
 
     .timeline-item__circle--start {
-        background-color: #00cc00;
+        @apply bg-aoc-green;
     }
 
     .timeline-item__intro-header {
-        @apply text-5xl font-thin pb-3;
+        @apply text-5xl font-thin pb-3 text-aoc-green;
         font-family: "Roboto";
         text-decoration: none;
-        color: #00cc00;
         text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
     }
 
     .timeline-item__link {
+        @apply text-aoc-green;
         text-decoration: none;
-        color: #00cc00 !important;
         text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
     }
 </style>

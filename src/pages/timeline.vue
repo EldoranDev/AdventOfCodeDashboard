@@ -1,13 +1,14 @@
 <template>
   <Layout>
     <div class="flow-root w-full xl:w-2/3 m-auto">
-        <ul role="list" class="-mb-8">
-            <timeline-item
-                v-for="event in events"
-                :key="event.id"
-                :event="event"
-            />
-        </ul>
+      <paginator class="mb-12" v-model="day" :min="0" :max="highestDay" :size="4" />
+      <ul role="list" v-if="day !== null">
+        <timeline-item
+          v-for="event in events"
+          :key="event.id"
+          :event="event"
+        />
+      </ul>
     </div>
   </Layout>
 </template>
@@ -49,16 +50,18 @@ query {
 import Member from '../components/member';
 import Star from '../components/star';
 import TimelineItem from '../components/timeline/timeline-item';
+import Paginator from '../components/paginator';
 
 export default {
     components: {
         Member,
         Star,
         TimelineItem,
+        Paginator,
     },
     data() {
         return {
-            day: 0,
+            day: null,
         };
     },
     computed: {
@@ -66,7 +69,21 @@ export default {
             return this.$page.events.edges.map(({ node: event }) => event).filter(event => {
                 return Number(event.day.id) === this.day;
             });
-        }
+        },
+        highestDay() {
+          let highest = 0;
+
+          for (let { node: event } of this.$page.events.edges) {
+            if (Number(event.day.id) > highest) {
+              highest = Number(event.day.id)
+            }
+          }
+
+          return highest;
+        },
+    },
+    mounted() {
+      this.day = this.highestDay;
     }
 }
 </script>
