@@ -1,20 +1,25 @@
 <template>
-  <div class="d-flex justify-center mb-10">
-      <g-link class="mx-4" to="/">Highscore</g-link>
-      <g-link class="mx-4" to="/charts">Charts</g-link>
-  </div>
+  <nav class="navigation">
+      <g-link class="link" to="/">Highscore</g-link>
+      <g-link class="link" to="/charts">Charts</g-link>
+      <g-link class="link" to="/timeline">Timeline</g-link>
+  </nav>
 </template>
 
-<style scoped>
-    a {
+<style lang="postcss">
+    .link {
+        @apply text-white mx-4;
         color: #ffffff;
         font-style: normal;
         text-shadow: 0 0 5px #ffffff;
     }
 
-    a.active--exact {
-        color: #00cc00 !important;
+    .link.active--exact {
+        color: #00cc00;
         text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
     }
 
+    .navigation {
+        @apply flex justify-center m-10;
+    }
 </style>

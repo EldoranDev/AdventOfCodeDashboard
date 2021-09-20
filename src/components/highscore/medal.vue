@@ -1,47 +1,73 @@
 <template>
-    <v-icon v-if="place < 3"
-        :x-small="part === 1"
-        :class="color"
-    >
-        mdi-medal
-    </v-icon>
-    <span v-else-if="part === 2" class="place">
+    <svg-icon
+        v-if="place < 3"
+        
+        type="mdi" 
+        
+        :path="medal"
+        class="medal"
+        :class="classes"
+        :size="size"
+    />
+    <span v-else-if="part === 2" class="medal medal--place">
         {{ place + 1 }}
     </span>
 </template>
 
 <script>
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiMedal } from '@mdi/js';
+
 export default {
+    components: {
+        SvgIcon,
+    },
     props: {
         part: Number,
         place: Number,
     },
     computed: {
-        color() {
-            switch (this.place) {
-                case 0: return 'gold';
-                case 1: return 'silver';
-                case 2: return 'bronze';
-            }
+        medal() {
+            return mdiMedal;
+        },
+        classes() {
+            return {
+                'medal--gold': this.place === 0,
+                'medal--silver': this.place === 1,
+                'medal--bronze': this.place === 2,
+            };
+        },
+        size() {
+            return this.part === 1 ? 16 : 24;
         }
     }
 }
 </script>
 
-<style scoped>
-    .gold {
-        color: gold !important;
-    }
-    .silver {
-        color: silver !important;
+<style lang="postcss">
+    .medal {
+        display: inline;
     }
 
-    .bronze {
-        color: rgb(148, 82, 16) !important;
+    .medal--gold {
+        color: gold;
     }
 
-    .place {
-        color: #cccccc !important;
+    .medal--silver {
+        color: silver;
+    }
+
+    .medal--bronze {
+        color: rgb(148, 82, 16);
+    }
+
+    .medal--small {
+        height: 12px;
+        width: 12px;
+    }
+
+    .medal--place {
+        color: #cccccc;
         opacity: 0.25;
     }
 </style>
