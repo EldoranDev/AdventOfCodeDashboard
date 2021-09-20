@@ -1,32 +1,34 @@
 <template>
-    <Layout>
-        <h1 class="text-h1 font-weight-thin text-center mb-10">Advent of Code 2020</h1>
-        <navigation />
-
-        <v-row class="justify-center mb-10">
-        <h2>{{ $page.member.name }}</h2>
-        </v-row> 
-        <v-row class="justify-center">
-            <v-simple-table>
-                <template #default>
-                    <tbody>
-                        <tr v-for="medal in $page.member.medals" :key="medal.place">
-                            <td>
-                                <Medal :place="medal.place-1" :part="1" /> / <Medal :place="medal.place-1" :part="2" />
-                            </td>
-                            <td>
-                                {{ medal.first }} / {{ medal.second }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </template>
-            </v-simple-table>
-        </v-row>
-        <v-row v-if="isMounted">
-            <v-col>
-                <chart-bar :chart="timeTakenBars" />
-            </v-col>
-        </v-row>
+    <Layout class="member">
+        <div class="row">
+            <h2 class="name">{{ $page.member.name }}</h2>
+        </div> 
+        <repo
+            v-if="$page.member.repo"
+            class="member row"
+            :repo="$page.member.repo"
+        />
+        <div class="row">
+            <table class="medals">
+                <tbody>
+                    <tr
+                        v-for="medal in $page.member.medals"
+                        :key="medal.place"
+                        class="row"
+                    >
+                        <td>
+                            <Medal :place="medal.place-1" :part="1" /> / <Medal :place="medal.place-1" :part="2" />
+                        </td>
+                        <td>
+                            {{ medal.first }} / {{ medal.second }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div v-if="isMounted">
+            <chart-bar :chart="timeTakenBars" />
+        </div>
     </Layout>
 </template>
 
@@ -36,6 +38,15 @@ query ($memberId: ID){
         id
         name
         color
+        repo {
+          language
+          repo
+          solutions {
+            year
+            day
+            link
+          }
+        }
         medals {
             place
             first
@@ -60,13 +71,14 @@ import Medal from '../components/highscore/medal.vue';
 import Navigation from '../components/navigation.vue';
 import ChartBar from '../components/charts/bar.vue';
 import settings from '../components/charts/settings';
-import { Chart } from 'chart.js';
+import Repo from '../components/member/repo';
 
 export default {
     components: {
         ChartBar,
         Medal,
         Navigation,
+        Repo,
     },
     data() {
         return {
@@ -84,63 +96,60 @@ export default {
                     datasets: [
                         {
                             label: "Part 1",
-                            backgroundColor: this.$page.member.color,
+                            backgroundColor: `${this.$page.member.color}`,
                             stack: 'member',
                             data: this.$page.member.events.filter(e => e.part === 1).map((e) => ({
-                                x: e.day,
-                                y: (e.timeTaken / 60).toFixed(2),
+                                x: Number(e.day.id),
+                                y: Number((e.timeTaken / 60).toFixed(2)),
                             })),
                             
                         },
                         {
                             label: "Part 2",
                             stack: 'member',
-                            backgroundColor: Chart.helpers.color(this.$page.member.color).alpha(0.5).rgbString(),
+                            backgroundColor: `${this.$page.member.color}66`,
                             data: this.$page.member.events.filter(e => e.part === 2).map((e) => ({
-                                x: e.day,
-                                y: (e.timeTaken / 60).toFixed(2),
+                                x: Number(e.day.id),
+                                y: Number((e.timeTaken / 60).toFixed(2)),
                             })),
                         }
                     ],
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    /*legend: {
+                    legend: {
                         position: "right",
                         labels: {
-                            fontColor: settings.aocColors["main"],
+                            color: settings.aocColors["main"],
                         },        
-                    },*/
+                    },
                     scales: {
-                       xAxes: [{
+                       xAxes: {
                             stacked: true,
-                            scaleLabel: {
+                            title: {
                                 display: true,
-                                labelString: "Day of Advent",
-                                fontColor: settings.aocColors["main"],
+                                text: "Day of Advent",
+                                color: settings.aocColors["main"],
                             },
-                            gridLines: {
+                            grid: {
                                 color: settings.aocColors["tertiary"],
                                 zeroLinecolor: settings.aocColors["secondary"],
                             }
-                        }],
-                        yAxes: [{
-                            // type: "",
+                        },
+                        yAxes: {
                             ticks: {
-                                fontColor: settings.aocColors["main"],
+                                color: settings.aocColors["main"],
                                 beginAtZero: true,
                             },
-                            scaleLabel: {
+                            title: {
                                 display: true,
-                                labelString: "minutes taken per star",
-                                fontColor: settings.aocColors["main"],
+                                text: "minutes taken per star",
+                                color: settings.aocColors["main"],
                             },
-                            gridLines: {
+                            grid: {
                                 color: settings.aocColors["tertiary"],
                                 zeroLineColor: settings.aocColors["secondary"],
                             },
-                        }]
+                        }
                     }
                 }
             }
@@ -148,3 +157,32 @@ export default {
     }
 }
 </script>
+
+<style lang="postcss">
+    .member {
+        & .row {
+            @apply flex flex-wrap justify-center flex-auto mt-5;
+        }
+
+        & .name {
+            @apply text-2xl;
+        }
+
+        & .medals {
+            & > tbody > .row {
+                @apply h-12;
+
+                & td {
+                    @apply px-4;
+                    vertical-align: middle;
+                }
+
+                &:not(:last-of-type) {
+                    &> td {
+                        border-bottom: thin solid hsla(0,0%,100%,.12);
+                    }
+                }
+            } 
+        }
+    }
+</style>

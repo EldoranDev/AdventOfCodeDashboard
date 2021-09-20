@@ -1,11 +1,14 @@
 <script>
-import { Scatter } from 'vue-chartjs';
+import Chart from './chart';
 
 export default {
-    extends: Scatter,
+    extends: Chart,
     props: ['chart'],
+    data() {
+        return {};
+    },
     mounted() {
-        this.renderChart({ datasets: this.chart.datasets }, this.chart.options);
+        this.renderChart('scatter', { datasets: this.chart.datasets }, this.chart.options);
     }
 }
 </script>

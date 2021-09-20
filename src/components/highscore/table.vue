@@ -1,35 +1,32 @@
 <template>
-  <v-simple-table dense>
-      <template #default>
-          <thead>
-              <th>Member</th>
-              <th>Score</th>
-              
-              <th v-for="day in 25" :key="day">
-                  {{day}}
-              </th>
-          </thead>
-          <tbody>
-              <tr v-for="member in members" :key="member.id">
-                  <td class="member"> <Member :member="member" /></td>
-                  <td><div class="d-flex justify-center">{{ member.score.local }}</div></td>
+  <table class="highscore">
+    <thead>
+        <th>Member</th>
+        <th>Score</th>
 
-                  <td v-for="day in days" :key="day.id" class="px-0 place">
-                    <div class="d-flex justify-center">
-                      <nobr>
-                        <Medal 
-                          v-for="event in Object.values(member.events).filter((e) => e.day.id === day.id)"
-                          :key="event.id"
-                          :place="event.place"
-                          :part="event.part"
-                        />
-                      </nobr>
-                    </div>
-                  </td>
-              </tr>
-          </tbody>
-      </template>
-  </v-simple-table>
+        <th v-for="day in 25" :key="day">
+            {{day}}
+        </th>
+    </thead>
+    <tbody>
+        <tr v-for="member in members" :key="member.id">
+            <td class="highscore__member">
+              <Member :member="member" />
+            </td>
+            <td class="highscore__score">
+              {{ member.score.local }}
+            </td>
+            <td v-for="day in days" :key="day.id" class="highscore__place">
+              <Medal 
+                v-for="event in Object.values(member.events).filter((e) => e.day.id === day.id)"
+                :key="event.id"
+                :place="event.place"
+                :part="event.part"
+              />
+            </td>
+        </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -48,12 +45,23 @@ export default {
 }
 </script>
 
-<style scoped>
-  td{
-    border: thin solid rgba(255, 255, 255, 0.12);
-  }
+<style lang="postcss">
+  .highscore {
+    & td {
+      border: thin solid rgba(255, 255, 255, 0.12);
+    }
+    
+    & .highscore__member {
+      @apply p-2;
+    }
 
-  td.place {
-    min-width: 50px;
+    & .highscore__score {
+      @apply flex justify-center p-2;
+    }
+
+    & .highscore__place {
+      @apply text-center;
+      min-width: 50px;
+    }
   }
 </style>

@@ -1,9 +1,10 @@
 const TYPES = require('./types');
 
 module.exports = {
-    link(context, events, days, members) {
+    link(context, events, days, members, repos) {
         linkEventsToDays(events, days, context);
         linkEventsToMembers(events, members, days, context);
+        linkRepoToMembers(repos, members, context);
     }
 }
 
@@ -54,5 +55,11 @@ function linkEventsToMembers(events, _members, days,  { store }) {
                 }
             }
         }
+    }
+}
+
+function linkRepoToMembers(repos, members, { store }) {
+    for (let repo of repos) {
+        members[repo.member.id].repo = store.createReference(TYPES.REPO, repo.id);
     }
 }
