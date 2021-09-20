@@ -14,10 +14,12 @@ jobs:
 
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         env:
+          AOC_YEAR: 2020
           AOC_BOARD: 5017
           AOC_INCLUDE: 384199
           AOC_SESSION: ${{ secrets.AOC_SESSION }}
           GRIDSOME_PATH_PREFIX: /AdventOfCodeDashboard
+          AOC_REPOS: '["https://raw.githubusercontent.com/EldoranDev/AdventOfCode/main/aoc-repo.json"]'
         run: |
           npm ci 
           npm run build
