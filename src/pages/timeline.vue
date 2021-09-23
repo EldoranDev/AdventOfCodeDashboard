@@ -40,6 +40,7 @@ query {
           name
         }
         part
+        solution
       }
     }
   }

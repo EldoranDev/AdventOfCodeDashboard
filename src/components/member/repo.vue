@@ -7,7 +7,6 @@
         />
         <a
             v-if="repo.repo"
-            target="_blank"
             :href="repo.repo"
         >
             <svg-icon

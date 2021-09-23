@@ -42,11 +42,25 @@
                 </div>
                 <div class="min-w-0 flex-1 pt-1.5 flex space-x-4"  >
                     <div class="text-right text-sm whitespace-nowrap text-gray-500">
-                        <time :datetime="time">{{ time }}</time>
+                        <time v-if="star" :datetime="time">{{ time }}</time>
                     </div>
                     <div v-if="star">
                         <p class="text-sm text-gray-500">
-                            <Member :member="event.member" /> got a <Star :points="event.points" /> by solving part {{ event.part }} of day {{ Number(event.day.id) + 1 }}
+                            <Member :member="event.member" /> got a <Star :points="event.points" />
+                            by solving part {{ event.part }} of day {{ Number(event.day.id) + 1 }}
+                            
+                            <a
+                                v-if="!!event.solution"
+                                target="_blank"
+                                :href="event.solution"
+                            >
+                                <svg-icon
+                                    v-if="!!event.solution"
+                                    class="timeline-item__source"
+                                    type="mdi"
+
+                                    :path="sourceIcon" />
+                            </a>
                         </p>
                     </div>
                     <div v-else>
@@ -75,8 +89,12 @@
 </template>
 
 <script>
+import SvgIcon from '@jamescoyle/vue-icon';
+import { mdiFile } from '@mdi/js';
+
 import Member from '../member.vue';
 import Star from '../star.vue';
+
 
 const EVENT_START = 'START';
 const EVENT_STAR = 'STAR';
@@ -87,7 +105,8 @@ export default {
     },
     components: {
         Member,
-        Star
+        Star,
+        SvgIcon,
     },
     computed: {
         star() {
@@ -101,6 +120,9 @@ export default {
         },
         time () {
             return new Date(this.event.timestamp * 1000).toLocaleTimeString();
+        },
+        sourceIcon() {
+            return mdiFile;
         }
     }
 }
@@ -126,5 +148,10 @@ export default {
         @apply text-aoc-green;
         text-decoration: none;
         text-shadow: 0 0 2px #00cc00, 0 0 5px #00cc00;
+    }
+
+    .timeline-item__source {
+        @apply inline text-white;
+        text-shadow: 0 0 5px #ffffff;
     }
 </style>

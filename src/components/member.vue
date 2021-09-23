@@ -36,7 +36,7 @@ export default {
 
 <style lang="postcss">
   .member-link__name {
-      color: #ffffff;
+      @apply text-white;
       font-style: normal;
       text-shadow: 0 0 5px #ffffff;
   }

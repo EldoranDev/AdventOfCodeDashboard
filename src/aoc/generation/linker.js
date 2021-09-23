@@ -1,10 +1,12 @@
 const TYPES = require('./types');
+const config = require('../config');
 
 module.exports = {
     link(context, events, days, members, repos) {
         linkEventsToDays(events, days, context);
         linkEventsToMembers(events, members, days, context);
         linkRepoToMembers(repos, members, context);
+        linkEventsToRepo(events, repos, context);
     }
 }
 
@@ -61,5 +63,37 @@ function linkEventsToMembers(events, _members, days,  { store }) {
 function linkRepoToMembers(repos, members, { store }) {
     for (let repo of repos) {
         members[repo.member.id].repo = store.createReference(TYPES.REPO, repo.id);
+    }
+}
+
+function linkEventsToRepo(events, repos, context) {
+    for (const repo of repos) {
+        if (repo.solutions == null || repo.solutions == undefined) {
+            continue;
+        }
+
+        for (const solution of repo.solutions) {
+            if (Number(solution.year) !== Number(config.YEAR)) {
+                continue;
+            }
+
+            const member = repo.id;
+            const day = solution.day;
+
+            const event = events.filter((event) => Number(event.member?.id) === member && Number(event.day.id) === day-1);
+
+            if (event.length === 0) {
+                continue;
+            }
+
+
+            if (Array.isArray(solution.link)) {
+                event[0].solution = solution.link[0];
+                event[1].solution = solution.link[1];
+            } else {
+                event[0].solution = solution.link;
+                event[1].solution = solution.link;
+            }
+        }
     }
 }
